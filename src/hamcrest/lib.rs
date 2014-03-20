@@ -84,7 +84,7 @@ fn is<T, M: Matcher<T>>(matcher: M) -> Is<T, M> {
  */
 
 #[deriving(Clone)]
-struct EqualTo<T> {
+pub struct EqualTo<T> {
   expected: T
 }
 
@@ -104,7 +104,7 @@ impl<T : Eq + Clone + Show> Matcher<T> for EqualTo<T> {
   }
 }
 
-fn equal_to<T : Eq + Clone + Show>(expected: &T) -> EqualTo<T> {
+pub fn equal_to<T : Eq + Clone + Show>(expected: &T) -> EqualTo<T> {
   EqualTo { expected: expected.clone() }
 }
 
@@ -114,7 +114,7 @@ fn equal_to<T : Eq + Clone + Show>(expected: &T) -> EqualTo<T> {
  *
  */
 
-fn assert_that<T: Clone, U: Matcher<T> + SelfDescribing>(actual: T, matcher: U) {
+pub fn assert_that<T: Clone, U: Matcher<T> + SelfDescribing>(actual: T, matcher: U) {
   if !matcher.matches(&actual) {
     let mut desc = Description::new();
 
