@@ -1,4 +1,4 @@
-use core::{Matcher,SelfDescribing,Description};
+use {success,expect,Matcher,MatchResult,SelfDescribing};
 
 #[deriving(Clone,Eq)]
 pub enum PathType {
@@ -12,27 +12,26 @@ pub struct ExistingPath {
   path_type: PathType
 }
 
+impl ExistingPath {
+  fn match_path_type(&self, actual: &Path) -> MatchResult {
+    match self.path_type {
+      File => expect(actual.is_file(), format!("`{}` was not a file", actual.display())),
+      Dir => expect(actual.is_dir(), format!("`{}` was not a dir", actual.display())),
+      _ => success()
+    }
+  }
+}
+
 impl SelfDescribing for ExistingPath {
-  fn describe_to(&self, desc: &mut Description) {
-    desc.append_text("an existing file");
+  fn describe(&self) -> ~str {
+    ~"an existing file"
   }
 }
 
 impl Matcher<Path> for ExistingPath {
-  fn matches(&self, actual: &Path) -> bool {
-    if !actual.exists() {
-      return false;
-    }
-
-    match self.path_type {
-      File => actual.is_file(),
-      Dir => actual.is_dir(),
-      AnyType => true
-    }
-  }
-
-  fn describe_mismatch(&self, actual: &Path, desc: &mut Description) {
-    desc.append_text(format!("`{}` was missing", actual.display()));
+  fn matches(&self, actual: &Path) -> MatchResult {
+    expect(actual.exists(), format!("{} was missing", actual.display()))
+      .and(self.match_path_type(actual))
   }
 }
 

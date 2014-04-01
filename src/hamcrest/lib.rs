@@ -1,7 +1,7 @@
-#[crate_id = "hamcrest"];
-#[crate_type = "lib"];
+#![crate_id = "hamcrest"]
+#![crate_type = "lib"]
 
-pub use core::{assert_that,Matcher,Description,SelfDescribing};
+pub use core::{assert_that,expect,success,Matcher,MatchResult,SelfDescribing};
 pub use matchers::is::{is,is_not};
 pub use matchers::equal_to::equal_to;
 pub use matchers::existing_path::{existing_path,existing_file,existing_dir};

@@ -1,4 +1,4 @@
-use super::super::core::{Matcher,SelfDescribing,Description};
+use {Matcher,MatchResult,SelfDescribing};
 
 #[deriving(Clone,Eq)]
 pub struct Is<T, M> {
@@ -6,18 +6,14 @@ pub struct Is<T, M> {
 }
 
 impl<T, M : Matcher<T>> SelfDescribing for Is<T, M> {
-  fn describe_to(&self, desc: &mut Description) {
-    self.matcher.describe_to(desc);
+  fn describe(&self) -> ~str {
+    self.matcher.describe()
   }
 }
 
 impl<T : Clone, M : Matcher<T>> Matcher<T> for Is<T, M> {
-  fn matches(&self, actual: &T) -> bool {
+  fn matches(&self, actual: &T) -> MatchResult {
     self.matcher.matches(actual)
-  }
-
-  fn describe_mismatch(&self, actual: &T, desc: &mut Description) {
-    self.matcher.describe_mismatch(actual, desc);
   }
 }
 
@@ -31,18 +27,17 @@ pub struct IsNot<T, M> {
 }
 
 impl<T, M : Matcher<T>> SelfDescribing for IsNot<T, M> {
-  fn describe_to(&self, desc: &mut Description) {
-    self.matcher.describe_to(desc);
+  fn describe(&self) -> ~str {
+    self.matcher.describe()
   }
 }
 
 impl<T : Clone, M : Matcher<T>> Matcher<T> for IsNot<T, M> {
-  fn matches(&self, actual: &T) -> bool {
-    !self.matcher.matches(actual)
-  }
-
-  fn describe_mismatch(&self, actual: &T, desc: &mut Description) {
-    self.matcher.describe_mismatch(actual, desc);
+  fn matches(&self, actual: &T) -> MatchResult {
+    match self.matcher.matches(actual) {
+      Ok(_) => Err(~"matched"),
+      Err(_) => Ok(())
+    }
   }
 }
 

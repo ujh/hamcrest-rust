@@ -1,5 +1,5 @@
 use std::fmt::Show;
-use core::{Matcher,SelfDescribing,Description};
+use {success,Matcher,MatchResult,SelfDescribing};
 
 #[deriving(Clone)]
 pub struct EqualTo<T> {
@@ -7,18 +7,19 @@ pub struct EqualTo<T> {
 }
 
 impl<T : Show> SelfDescribing for EqualTo<T> {
-  fn describe_to(&self, desc: &mut Description) {
-    desc.append_text(format!("{}", self.expected));
+  fn describe(&self) -> ~str {
+    format!("{}", self.expected)
   }
 }
 
 impl<T : Eq + Clone + Show> Matcher<T> for EqualTo<T> {
-  fn matches(&self, actual: &T) -> bool {
-    self.expected.eq(actual)
-  }
-
-  fn describe_mismatch(&self, actual: &T, desc: &mut Description) {
-    desc.append_text(format!("was {}", actual));
+  fn matches(&self, actual: &T) -> MatchResult {
+    if self.expected.eq(actual) {
+      success()
+    }
+    else {
+      Err(format!("was {}", actual))
+    }
   }
 }
 
