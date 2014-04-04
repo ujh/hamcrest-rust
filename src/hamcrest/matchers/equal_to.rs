@@ -1,30 +1,28 @@
-use std::fmt::Show;
 use {success,Matcher,MatchResult,SelfDescribing};
 
-#[deriving(Clone)]
 pub struct EqualTo<T> {
   expected: T
 }
 
-impl<T : Show> SelfDescribing for EqualTo<T> {
+impl<T> SelfDescribing for EqualTo<T> {
   fn describe(&self) -> ~str {
-    format!("{}", self.expected)
+    format!("{:?}", self.expected)
   }
 }
 
-impl<T : Eq + Clone + Show> Matcher<T> for EqualTo<T> {
-  fn matches(&self, actual: &T) -> MatchResult {
-    if self.expected.eq(actual) {
+impl<T : Eq> Matcher<T> for EqualTo<T> {
+  fn matches(&self, actual: T) -> MatchResult {
+    if self.expected.eq(&actual) {
       success()
     }
     else {
-      Err(format!("was {}", actual))
+      Err(format!("was {:?}", actual))
     }
   }
 }
 
-pub fn equal_to<T : Eq + Clone + Show>(expected: &T) -> EqualTo<T> {
-  EqualTo { expected: expected.clone() }
+pub fn equal_to<T : Eq>(expected: T) -> ~EqualTo<T> {
+  ~EqualTo { expected: expected }
 }
 
 #[cfg(test)]

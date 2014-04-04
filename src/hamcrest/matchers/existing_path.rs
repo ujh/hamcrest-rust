@@ -1,13 +1,11 @@
 use {success,expect,Matcher,MatchResult,SelfDescribing};
 
-#[deriving(Clone,Eq)]
 pub enum PathType {
   AnyType,
   File,
   Dir
 }
 
-#[deriving(Clone,Eq)]
 pub struct ExistingPath {
   path_type: PathType
 }
@@ -28,23 +26,23 @@ impl SelfDescribing for ExistingPath {
   }
 }
 
-impl Matcher<Path> for ExistingPath {
+impl<'a> Matcher<&'a Path> for ExistingPath {
   fn matches(&self, actual: &Path) -> MatchResult {
     expect(actual.exists(), format!("{} was missing", actual.display()))
       .and(self.match_path_type(actual))
   }
 }
 
-pub fn existing_path() -> ExistingPath {
-  ExistingPath { path_type: AnyType }
+pub fn existing_path() -> ~ExistingPath {
+  ~ExistingPath { path_type: AnyType }
 }
 
-pub fn existing_file() -> ExistingPath {
-  ExistingPath { path_type: File }
+pub fn existing_file() -> ~ExistingPath {
+  ~ExistingPath { path_type: File }
 }
 
-pub fn existing_dir() -> ExistingPath {
-  ExistingPath { path_type: Dir }
+pub fn existing_dir() -> ~ExistingPath {
+  ~ExistingPath { path_type: Dir }
 }
 
 #[cfg(test)]

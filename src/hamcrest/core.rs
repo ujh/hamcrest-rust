@@ -15,7 +15,7 @@ pub fn expect(predicate: bool, msg: ~str) -> MatchResult {
   }
 }
 
-pub fn assert_that<T: Clone, U: Matcher<T> + SelfDescribing>(actual: &T, matcher: U) {
+pub fn assert_that<T, U: Matcher<T> + SelfDescribing>(actual: T, matcher: &U) {
   match matcher.matches(actual) {
     Ok(_) => return,
     Err(mismatch) => {
@@ -33,6 +33,6 @@ pub trait SelfDescribing {
 
 }
 
-pub trait Matcher<T> : SelfDescribing + Clone {
-  fn matches(&self, actual: &T) -> MatchResult;
+pub trait Matcher<T> : SelfDescribing {
+  fn matches(&self, actual: T) -> MatchResult;
 }
