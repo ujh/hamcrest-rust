@@ -26,7 +26,7 @@ pub struct IsNot<T, M> {
 
 impl<T, M : Matcher<T>> SelfDescribing for IsNot<T, M> {
   fn describe(&self) -> ~str {
-    self.matcher.describe()
+    format!("not {}", self.matcher.describe())
   }
 }
 
