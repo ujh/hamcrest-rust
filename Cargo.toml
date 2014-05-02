@@ -7,3 +7,4 @@ authors = ["Carllerche <me@carllerche.com>"]
 [[lib]]
 
 name = "hamcrest"
+path = "src/hamcrest/lib.rs"
