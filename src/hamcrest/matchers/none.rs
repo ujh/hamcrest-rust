@@ -4,7 +4,7 @@ pub struct IsNone<T>;
 
 impl<T> SelfDescribing for IsNone<T> {
   fn describe(&self) -> ~str {
-    ~"none"
+    "none".to_owned()
   }
 }
 

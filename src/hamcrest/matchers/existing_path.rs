@@ -22,7 +22,7 @@ impl ExistingPath {
 
 impl SelfDescribing for ExistingPath {
   fn describe(&self) -> ~str {
-    ~"an existing file"
+    "an existing file".to_owned()
   }
 }
 
