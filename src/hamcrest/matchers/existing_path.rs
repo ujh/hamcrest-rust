@@ -33,16 +33,16 @@ impl<'a> Matcher<&'a Path> for ExistingPath {
   }
 }
 
-pub fn existing_path() -> ~ExistingPath {
-  ~ExistingPath { path_type: AnyType }
+pub fn existing_path() -> Box<ExistingPath> {
+  box ExistingPath { path_type: AnyType }
 }
 
-pub fn existing_file() -> ~ExistingPath {
-  ~ExistingPath { path_type: File }
+pub fn existing_file() -> Box<ExistingPath> {
+  box ExistingPath { path_type: File }
 }
 
-pub fn existing_dir() -> ~ExistingPath {
-  ~ExistingPath { path_type: Dir }
+pub fn existing_dir() -> Box<ExistingPath> {
+  box ExistingPath { path_type: Dir }
 }
 
 #[cfg(test)]

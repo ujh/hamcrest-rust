@@ -28,8 +28,8 @@ impl<'a, T> Matcher<&'a Vec<T>> for OfLen {
   }
 }
 
-pub fn of_len(len: uint) -> ~OfLen {
-  ~OfLen { len: len }
+pub fn of_len(len: uint) -> Box<OfLen> {
+  box OfLen { len: len }
 }
 
 #[deriving(Clone)]
@@ -39,7 +39,7 @@ pub struct Contains<T> {
 }
 
 impl<T> Contains<T> {
-    pub fn exactly(mut ~self) -> ~Contains<T> {
+    pub fn exactly(mut ~self) -> Box<Contains<T>> {
         self.exactly = true;
         self
     }
@@ -74,8 +74,8 @@ impl<'a, T : Show + Eq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
   }
 }
 
-pub fn contains<T>(items: Vec<T>) -> ~Contains<T> {
-  ~Contains { items: items, exactly: false }
+pub fn contains<T>(items: Vec<T>) -> Box<Contains<T>> {
+  box Contains { items: items, exactly: false }
 }
 
 #[cfg(test)]
