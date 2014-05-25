@@ -12,7 +12,7 @@ pub struct OfLen {
 }
 
 impl SelfDescribing for OfLen {
-  fn describe(&self) -> ~str {
+  fn describe(&self) -> StrBuf {
     format!("of len {}", self.len)
   }
 }
@@ -46,7 +46,7 @@ impl<T> Contains<T> {
 }
 
 impl<T : Show> SelfDescribing for Contains<T> {
-    fn describe(&self) -> ~str {
+    fn describe(&self) -> StrBuf {
         if self.exactly {
             format!("containing exactly {}", self.items)
         } else {

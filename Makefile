@@ -1,29 +1,39 @@
+# Root of the project
+ROOT = $(dir $(firstword $(MAKEFILE_LIST)))
+
+# Path to rustc executable
 RUSTC ?= rustc
-RUSTFLAGS ?= -O
-TARGET = target/timestamp
 
-SRC = $(wildcard src/hamcrest/*.rs) \
-			$(wildcard src/hamcrest/matchers/*.rs)
+# Flags to pass rustc
+RUSTC_FLAGS ?= -O
 
-all: $(TARGET)
+TARGET ?= $(ROOT)target
 
-$(TARGET): $(SRC)
-	mkdir -p target
-	$(RUSTC) --crate-type=lib $(RUSTFLAGS) --out-dir target src/hamcrest/lib.rs
+LIBHAMCREST = $(TARGET)/libhamcrest.timestamp
+
+SRC = $(wildcard $(ROOT)src/hamcrest/*.rs) \
+			$(wildcard $(ROOT)src/hamcrest/matchers/*.rs)
+
+all: $(LIBHAMCREST)
+
+$(TARGET):
+	@mkdir -p $@
+
+$(LIBHAMCREST): $(SRC) | $(TARGET)
+	$(RUSTC) --crate-type=lib $(RUSTFLAGS) --out-dir target $(ROOT)src/hamcrest/lib.rs
 	touch $(TARGET)
 
-hamcrest-test: $(SRC)
-	$(RUSTC) --test -o hamcrest-test src/hamcrest/lib.rs
+hamcrest-test: $(SRC) | $(TARGET)
+	$(RUSTC) --test -o $(TARGET)/hamcrest-test $(ROOT)src/hamcrest/lib.rs
 
-test: hamcrest-test
-	mkdir -p target/test
-	TEST_EXISTS_FILE=README.md \
-	TEST_EXISTS_DIR=target \
-	TEST_EXISTS_NONE=zomg.txt \
-	./hamcrest-test
+test: hamcrest-test | $(TARGET)
+	TEST_EXISTS_FILE=$(ROOT)README.md \
+	TEST_EXISTS_DIR=$(TARGET) \
+	TEST_EXISTS_NONE=$(ROOT)zomg.txt \
+	$(TARGET)/hamcrest-test
 
 clean:
-	rm -rf target
-	rm -f hamcrest-test
+	rm -f $(TARGET)/libhamcrest*
+	rm -f $(TARGET)/hamcrest-test
 
 .PHONY: all test clean

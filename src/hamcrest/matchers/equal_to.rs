@@ -5,7 +5,7 @@ pub struct EqualTo<T> {
 }
 
 impl<T> SelfDescribing for EqualTo<T> {
-  fn describe(&self) -> ~str {
+  fn describe(&self) -> StrBuf {
     format!("{:?}", self.expected)
   }
 }

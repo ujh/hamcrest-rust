@@ -5,7 +5,7 @@ pub struct Is<T, M> {
 }
 
 impl<T, M : Matcher<T>> SelfDescribing for Is<T, M> {
-  fn describe(&self) -> ~str {
+  fn describe(&self) -> StrBuf {
     self.matcher.describe()
   }
 }
@@ -25,7 +25,7 @@ pub struct IsNot<T, M> {
 }
 
 impl<T, M : Matcher<T>> SelfDescribing for IsNot<T, M> {
-  fn describe(&self) -> ~str {
+  fn describe(&self) -> StrBuf {
     format!("not {}", self.matcher.describe())
   }
 }
