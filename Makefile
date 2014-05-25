@@ -20,7 +20,7 @@ $(TARGET):
 	@mkdir -p $@
 
 $(LIBHAMCREST): $(SRC) | $(TARGET)
-	$(RUSTC) --crate-type=lib $(RUSTFLAGS) --out-dir target $(ROOT)src/hamcrest/lib.rs
+	$(RUSTC) --crate-type=lib $(RUSTFLAGS) --out-dir $(TARGET) $(ROOT)src/hamcrest/lib.rs
 	touch $(TARGET)
 
 hamcrest-test: $(SRC) | $(TARGET)
