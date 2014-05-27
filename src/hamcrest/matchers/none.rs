@@ -3,7 +3,7 @@ use {success,Matcher,MatchResult,SelfDescribing};
 pub struct IsNone<T>;
 
 impl<T> SelfDescribing for IsNone<T> {
-  fn describe(&self) -> StrBuf {
+  fn describe(&self) -> String {
     "none".to_owned()
   }
 }

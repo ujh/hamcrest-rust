@@ -21,7 +21,7 @@ impl ExistingPath {
 }
 
 impl SelfDescribing for ExistingPath {
-  fn describe(&self) -> StrBuf {
+  fn describe(&self) -> String {
     "an existing file".to_owned()
   }
 }
@@ -77,7 +77,7 @@ mod test {
     assert_that(&path, is_not(existing_dir()));
   }
 
-  fn path(path: Option<StrBuf>) -> Path {
+  fn path(path: Option<String>) -> Path {
     Path::new(path.unwrap())
   }
 }

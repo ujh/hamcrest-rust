@@ -1,12 +1,12 @@
 use std::result::Result;
 
-pub type MatchResult = Result<(), StrBuf>;
+pub type MatchResult = Result<(), String>;
 
 pub fn success() -> MatchResult {
   Ok(())
 }
 
-pub fn expect(predicate: bool, msg: StrBuf) -> MatchResult {
+pub fn expect(predicate: bool, msg: String) -> MatchResult {
   if predicate {
     success()
   }
@@ -27,7 +27,7 @@ pub fn assert_that<T, U: Matcher<T> + SelfDescribing>(actual: T, matcher: &U) {
 
 pub trait SelfDescribing {
 
-  fn describe(&self) -> StrBuf {
+  fn describe(&self) -> String {
     format!("{:?}", self)
   }
 
