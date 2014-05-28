@@ -21,7 +21,7 @@ $(TARGET):
 
 $(LIBHAMCREST): $(SRC) | $(TARGET)
 	$(RUSTC) --crate-type=lib $(RUSTFLAGS) --out-dir $(TARGET) $(ROOT)src/hamcrest/lib.rs
-	touch $(TARGET)
+	touch $(TARGET)/libhamcrest.timestamp
 
 hamcrest-test: $(SRC) | $(TARGET)
 	$(RUSTC) --test -o $(TARGET)/hamcrest-test $(ROOT)src/hamcrest/lib.rs
