@@ -33,7 +33,7 @@ impl<T, M : Matcher<T>> SelfDescribing for IsNot<T, M> {
 impl<T, M : Matcher<T>> Matcher<T> for IsNot<T, M> {
   fn matches(&self, actual: T) -> MatchResult {
     match self.matcher.matches(actual) {
-      Ok(_) => Err("matched".to_owned()),
+      Ok(_) => Err("matched".to_str()),
       Err(_) => Ok(())
     }
   }

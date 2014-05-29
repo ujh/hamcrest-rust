@@ -1,11 +1,10 @@
 use {success,Matcher,MatchResult,SelfDescribing};
-use debug::fmt;
 
 pub struct IsNone<T>;
 
 impl<T> SelfDescribing for IsNone<T> {
   fn describe(&self) -> String {
-    "none".to_owned()
+    "none".to_str()
   }
 }
 
