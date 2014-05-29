@@ -1,4 +1,5 @@
 use {success,Matcher,MatchResult,SelfDescribing};
+use debug::fmt;
 
 pub struct IsNone<T>;
 

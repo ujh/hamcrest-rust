@@ -2,6 +2,7 @@
 #![crate_type = "lib"]
 
 extern crate collections;
+extern crate debug;
 
 pub use core::{assert_that,expect,success,Matcher,MatchResult,SelfDescribing};
 pub use matchers::is::{is,is_not};
