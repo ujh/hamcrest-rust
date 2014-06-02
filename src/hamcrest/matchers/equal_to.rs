@@ -10,7 +10,7 @@ impl<T> SelfDescribing for EqualTo<T> {
   }
 }
 
-impl<T : Eq> Matcher<T> for EqualTo<T> {
+impl<T : PartialEq> Matcher<T> for EqualTo<T> {
   fn matches(&self, actual: T) -> MatchResult {
     if self.expected.eq(&actual) {
       success()
@@ -21,7 +21,7 @@ impl<T : Eq> Matcher<T> for EqualTo<T> {
   }
 }
 
-pub fn equal_to<T : Eq>(expected: T) -> Box<EqualTo<T>> {
+pub fn equal_to<T : PartialEq>(expected: T) -> Box<EqualTo<T>> {
   box EqualTo { expected: expected }
 }
 

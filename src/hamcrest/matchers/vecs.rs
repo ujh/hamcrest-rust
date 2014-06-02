@@ -55,7 +55,7 @@ impl<T : Show> SelfDescribing for Contains<T> {
     }
 }
 
-impl<'a, T : Show + Eq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
+impl<'a, T : Show + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
   fn matches(&self, actual: &Vec<T>) -> MatchResult {
     let mut rem = actual.clone();
 
