@@ -22,7 +22,7 @@ impl ExistingPath {
 
 impl SelfDescribing for ExistingPath {
   fn describe(&self) -> String {
-    "an existing file".to_str()
+    "an existing file".to_string()
   }
 }
 
