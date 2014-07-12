@@ -52,7 +52,7 @@ mod test {
 
   #[test]
   fn test_with_existing_file() {
-    let path = path(os::getenv("TEST_EXISTS_FILE"));
+    let path = path(os::getenv("TEST_EXISTS_FILE"), "./README.md");
 
     assert_that(&path, is(existing_path()));
     assert_that(&path, is(existing_file()));
@@ -61,7 +61,7 @@ mod test {
 
   #[test]
   fn test_with_existing_dir() {
-    let path = path(os::getenv("TEST_EXISTS_DIR"));
+    let path = path(os::getenv("TEST_EXISTS_DIR"), "./target");
 
     assert_that(&path, is(existing_path()));
     assert_that(&path, is(existing_dir()));
@@ -70,14 +70,14 @@ mod test {
 
   #[test]
   fn test_with_nonexisting_path() {
-    let path = path(os::getenv("TEST_EXISTS_NONE"));
+    let path = path(os::getenv("TEST_EXISTS_NONE"), "./zomg.txt");
 
     assert_that(&path, is_not(existing_path()));
     assert_that(&path, is_not(existing_file()));
     assert_that(&path, is_not(existing_dir()));
   }
 
-  fn path(path: Option<String>) -> Path {
-    Path::new(path.unwrap())
+  fn path(path: Option<String>, default: &str) -> Path {
+    Path::new(path.unwrap_or(default.to_string()))
   }
 }
