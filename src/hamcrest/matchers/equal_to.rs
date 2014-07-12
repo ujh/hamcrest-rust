@@ -1,16 +1,17 @@
+use std::fmt::Show;
 use {success,Matcher,MatchResult,SelfDescribing};
 
 pub struct EqualTo<T> {
   expected: T
 }
 
-impl<T> SelfDescribing for EqualTo<T> {
+impl<T: Show> SelfDescribing for EqualTo<T> {
   fn describe(&self) -> String {
-    format!("{:?}", self.expected)
+    format!("{}", self.expected)
   }
 }
 
-impl<T : PartialEq> Matcher<T> for EqualTo<T> {
+impl<T : PartialEq + Show> Matcher<T> for EqualTo<T> {
   fn matches(&self, actual: T) -> MatchResult {
     if self.expected.eq(&actual) {
       success()
@@ -21,7 +22,7 @@ impl<T : PartialEq> Matcher<T> for EqualTo<T> {
   }
 }
 
-pub fn equal_to<T : PartialEq>(expected: T) -> Box<EqualTo<T>> {
+pub fn equal_to<T : PartialEq + Show>(expected: T) -> Box<EqualTo<T>> {
   box EqualTo { expected: expected }
 }
 
