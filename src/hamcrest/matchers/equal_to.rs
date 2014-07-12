@@ -33,11 +33,11 @@ mod test {
   #[test]
   fn test_equality_of_ints() {
     // Successful match
-    assert_that(&1, is(equal_to(&1)));
+    assert_that(&1, is(equal_to(&1i)));
 
     // Unsuccessful match
     let res = task::try(proc() {
-      assert_that(&2, is(equal_to(&1)));
+      assert_that(&2, is(equal_to(&1i)));
     });
 
     assert!(res.is_err());
