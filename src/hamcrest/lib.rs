@@ -1,4 +1,4 @@
-#![crate_id = "hamcrest"]
+#![crate_name = "hamcrest"]
 #![crate_type = "lib"]
 
 extern crate collections;
