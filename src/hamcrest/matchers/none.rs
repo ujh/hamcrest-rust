@@ -18,8 +18,8 @@ impl<T> Matcher<Option<T>> for IsNone<T> {
   }
 }
 
-pub fn none<T>() -> Box<IsNone<T>> {
-  box IsNone
+pub fn none<T>() -> IsNone<T> {
+  IsNone
 }
 
 #[cfg(test)]

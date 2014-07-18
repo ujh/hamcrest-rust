@@ -22,8 +22,8 @@ impl<T : PartialEq + Show> Matcher<T> for EqualTo<T> {
   }
 }
 
-pub fn equal_to<T : PartialEq + Show>(expected: T) -> Box<EqualTo<T>> {
-  box EqualTo { expected: expected }
+pub fn equal_to<T : PartialEq + Show>(expected: T) -> EqualTo<T> {
+  EqualTo { expected: expected }
 }
 
 #[cfg(test)]

@@ -15,7 +15,8 @@ pub fn expect(predicate: bool, msg: String) -> MatchResult {
   }
 }
 
-pub fn assert_that<T, U: Matcher<T> + SelfDescribing>(actual: T, matcher: &U) {
+pub fn assert_that<T, U: Matcher<T> + SelfDescribing>(actual: T,
+                                                      matcher: U) {
   match matcher.matches(actual) {
     Ok(_) => return,
     Err(mismatch) => {
