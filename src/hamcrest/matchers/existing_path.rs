@@ -1,4 +1,5 @@
 use {success,expect,Matcher,MatchResult,SelfDescribing};
+use std::io::fs::PathExtensions;
 
 pub enum PathType {
   AnyType,
