@@ -1,19 +1,15 @@
-use std::fmt::Show;
+use std::fmt::{mod, Show};
 use std::vec::Vec;
-use {
-  success,
-  Matcher,
-  MatchResult,
-  SelfDescribing};
+use {success, Matcher, MatchResult};
 
 #[deriving(Clone)]
 pub struct OfLen {
   len: uint
 }
 
-impl SelfDescribing for OfLen {
-  fn describe(&self) -> String {
-    format!("of len {}", self.len)
+impl Show for OfLen {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    write!(f, "of len {}", self.len)
   }
 }
 
@@ -45,17 +41,17 @@ impl<T> Contains<T> {
     }
 }
 
-impl<T : Show> SelfDescribing for Contains<T> {
-    fn describe(&self) -> String {
+impl<T: Show> Show for Contains<T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if self.exactly {
-            format!("containing exactly {}", self.items)
+            write!(f, "containing exactly {}", self.items)
         } else {
-            format!("containing {}", self.items)
+            write!(f, "containing {}", self.items)
         }
     }
 }
 
-impl<'a, T : Show + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
+impl<'a, T: Show + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
   fn matches(&self, actual: &Vec<T>) -> MatchResult {
     let mut rem = actual.clone();
 

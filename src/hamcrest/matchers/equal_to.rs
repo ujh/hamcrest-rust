@@ -1,13 +1,13 @@
-use std::fmt::Show;
-use {success,Matcher,MatchResult,SelfDescribing};
+use std::fmt::{mod, Show};
+use {success,Matcher,MatchResult};
 
 pub struct EqualTo<T> {
   expected: T
 }
 
-impl<T: Show> SelfDescribing for EqualTo<T> {
-  fn describe(&self) -> String {
-    format!("{}", self.expected)
+impl<T: Show> fmt::Show for EqualTo<T> {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+      self.expected.fmt(f)
   }
 }
 
@@ -17,7 +17,7 @@ impl<T : PartialEq + Show> Matcher<T> for EqualTo<T> {
       success()
     }
     else {
-      Err(format!("was {:?}", actual))
+      Err(format!("was {}", actual))
     }
   }
 }

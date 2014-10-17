@@ -1,12 +1,13 @@
-use {Matcher,MatchResult,SelfDescribing};
+use std::fmt;
+use {Matcher,MatchResult};
 
 pub struct Is<T, M> {
   matcher: M
 }
 
-impl<T, M: Matcher<T>> SelfDescribing for Is<T, M> {
-  fn describe(&self) -> String {
-    self.matcher.describe()
+impl<T, M: Matcher<T>> fmt::Show for Is<T, M> {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+      self.matcher.fmt(f)
   }
 }
 
@@ -24,9 +25,9 @@ pub struct IsNot<T, M> {
   matcher: M
 }
 
-impl<T, M : Matcher<T>> SelfDescribing for IsNot<T, M> {
-  fn describe(&self) -> String {
-    format!("not {}", self.matcher.describe())
+impl<T, M : Matcher<T>> fmt::Show for IsNot<T, M> {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    write!(f, "not {}", self.matcher)
   }
 }
 

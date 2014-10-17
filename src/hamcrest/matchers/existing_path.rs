@@ -1,4 +1,5 @@
-use {success,expect,Matcher,MatchResult,SelfDescribing};
+use {success,expect,Matcher,MatchResult};
+use std::fmt;
 use std::io::fs::PathExtensions;
 
 pub enum PathType {
@@ -21,10 +22,10 @@ impl ExistingPath {
   }
 }
 
-impl SelfDescribing for ExistingPath {
-  fn describe(&self) -> String {
-    "an existing file".to_string()
-  }
+impl fmt::Show for ExistingPath {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "an existing file")
+    }
 }
 
 impl<'a> Matcher<&'a Path> for ExistingPath {
