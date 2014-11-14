@@ -1,5 +1,5 @@
 use std::fmt::{mod, Show, Formatter};
-use std::num::{Zero, cast};
+use std::num::{Float, NumCast, cast};
 use {success,Matcher,MatchResult};
 
 pub struct CloseTo<T> {
@@ -13,12 +13,12 @@ impl<T: Show> Show for CloseTo<T> {
   }
 }
 
-impl<T : Float + Zero + PartialEq + Show> Matcher<T> for CloseTo<T> {
+impl<T : Float + PartialEq + Show> Matcher<T> for CloseTo<T> {
   fn matches(&self, actual: T) -> MatchResult {
     let d = (self.expected - actual).abs();
 
     let close = self.expected == actual
-        || ((self.expected == Zero::zero() || actual == Zero::zero() || d < Float::min_pos_value(None)) &&
+        || ((self.expected == Float::zero() || actual == Float::zero() || d < Float::min_pos_value(None)) &&
             d < self.epsilon * Float::min_pos_value(None))
         || d / (self.expected.abs() + actual.abs()) < self.epsilon;
 
@@ -31,17 +31,18 @@ impl<T : Float + Zero + PartialEq + Show> Matcher<T> for CloseTo<T> {
   }
 }
 
-pub fn close_to<T: Float + Zero + PartialEq + NumCast + Show>(expected: T) -> CloseTo<T> {
+pub fn close_to<T: Float + PartialEq + NumCast + Show>(expected: T) -> CloseTo<T> {
     close_to_eps(expected, cast::<f32, T>(0.00001).unwrap())
 }
 
-pub fn close_to_eps<T: Float + Zero + PartialEq + Show>(expected: T, epsilon: T) -> CloseTo<T> {
+pub fn close_to_eps<T: Float + PartialEq + Show>(expected: T, epsilon: T) -> CloseTo<T> {
   CloseTo { expected: expected, epsilon: epsilon }
 }
 
 #[cfg(test)]
 mod test {
- use std::task;
+  use std::num::Float;
+  use std::task;
   use {assert_that,is,close_to,close_to_eps};
 
   #[test]
@@ -65,4 +66,4 @@ mod test {
       assert_that(1e-40f32, is(close_to_eps(0.0, 0.000001)));
     }).is_err());
   }
-} 
+}
