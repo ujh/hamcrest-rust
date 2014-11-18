@@ -1,6 +1,7 @@
 use std::fmt::{mod, Show, Formatter};
 use std::num::{Zero, cast};
 use {success,Matcher,MatchResult};
+use std::num::{NumCast, Float};
 
 pub struct CloseTo<T> {
   expected: T,
@@ -18,7 +19,7 @@ impl<T : Float + Zero + PartialEq + Show> Matcher<T> for CloseTo<T> {
     let d = (self.expected - actual).abs();
 
     let close = self.expected == actual
-        || ((self.expected == Zero::zero() || actual == Zero::zero() || d < Float::min_pos_value(None)) &&
+        || ((self.expected == Float::zero() || actual == Float::zero() || d < Float::min_pos_value(None)) &&
             d < self.epsilon * Float::min_pos_value(None))
         || d / (self.expected.abs() + actual.abs()) < self.epsilon;
 
@@ -43,6 +44,7 @@ pub fn close_to_eps<T: Float + Zero + PartialEq + Show>(expected: T, epsilon: T)
 mod test {
  use std::task;
   use {assert_that,is,close_to,close_to_eps};
+  use std::num::Float;
 
   #[test]
   fn test_equality_of_floats() {
