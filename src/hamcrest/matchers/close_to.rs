@@ -1,7 +1,6 @@
 use std::fmt::{mod, Show, Formatter};
 use std::num::{Float, NumCast, cast};
 use {success,Matcher,MatchResult};
-use std::num::{NumCast, Float};
 
 pub struct CloseTo<T> {
   expected: T,
