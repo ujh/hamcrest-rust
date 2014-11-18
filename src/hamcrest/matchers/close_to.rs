@@ -1,6 +1,7 @@
 use std::fmt::{mod, Show, Formatter};
 use std::num::{Float, NumCast, cast};
 use {success,Matcher,MatchResult};
+use std::num::{NumCast, Float};
 
 pub struct CloseTo<T> {
   expected: T,
@@ -44,6 +45,7 @@ mod test {
   use std::num::Float;
   use std::task;
   use {assert_that,is,close_to,close_to_eps};
+  use std::num::Float;
 
   #[test]
   fn test_equality_of_floats() {

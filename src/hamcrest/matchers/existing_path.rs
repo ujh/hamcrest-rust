@@ -15,9 +15,9 @@ pub struct ExistingPath {
 impl ExistingPath {
   fn match_path_type(&self, actual: &Path) -> MatchResult {
     match self.path_type {
-      File => expect(actual.is_file(), format!("`{}` was not a file", actual.display())),
-      Dir => expect(actual.is_dir(), format!("`{}` was not a dir", actual.display())),
-      _ => success()
+      PathType::File => expect(actual.is_file(), format!("`{}` was not a file", actual.display())),
+      PathType::Dir => expect(actual.is_dir(), format!("`{}` was not a dir", actual.display())),
+      _ => success(),
     }
   }
 }
@@ -36,15 +36,15 @@ impl<'a> Matcher<&'a Path> for ExistingPath {
 }
 
 pub fn existing_path() -> ExistingPath {
-  ExistingPath { path_type: AnyType }
+  ExistingPath { path_type: PathType::AnyType }
 }
 
 pub fn existing_file() -> ExistingPath {
-  ExistingPath { path_type: File }
+  ExistingPath { path_type: PathType::File }
 }
 
 pub fn existing_dir() -> ExistingPath {
-  ExistingPath { path_type: Dir }
+  ExistingPath { path_type: PathType::Dir }
 }
 
 #[cfg(test)]
