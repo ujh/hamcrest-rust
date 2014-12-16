@@ -44,7 +44,6 @@ mod test {
   use std::num::Float;
   use std::task;
   use {assert_that,is,close_to,close_to_eps};
-  use std::num::Float;
 
   #[test]
   fn test_equality_of_floats() {
@@ -57,13 +56,13 @@ mod test {
     assert_that(1e-40f32, is(close_to_eps(0.0, 0.01)));
 
     // Unsuccessful match
-    assert!(task::try(proc() {
+    assert!(task::try(|| {
       assert_that(2.0, is(close_to(1.0f32)));
     }).is_err());
-    assert!(task::try(proc() {
+    assert!(task::try(move || {
       assert_that(nan, is(close_to(nan)));
     }).is_err());
-    assert!(task::try(proc() {
+    assert!(task::try(|| {
       assert_that(1e-40f32, is(close_to_eps(0.0, 0.000001)));
     }).is_err());
   }
