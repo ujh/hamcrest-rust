@@ -37,7 +37,7 @@ mod test {
     assert_that(&1, is(equal_to(&1i)));
 
     // Unsuccessful match
-    let res = task::try(proc() {
+    let res = task::try(|| {
       assert_that(&2, is(equal_to(&1i)));
     });
 
