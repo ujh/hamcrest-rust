@@ -2,7 +2,7 @@ use std::fmt::{mod, Show};
 use std::vec::Vec;
 use {success, Matcher, MatchResult};
 
-#[deriving(Clone)]
+#[deriving(Clone, Copy)]
 pub struct OfLen {
   len: uint
 }
