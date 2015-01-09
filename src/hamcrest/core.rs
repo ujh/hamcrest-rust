@@ -19,7 +19,7 @@ pub fn assert_that<T, U: Matcher<T>>(actual: T, matcher: U) {
     match matcher.matches(actual) {
         Ok(_) => return,
         Err(mismatch) => {
-            panic!("\nExpected: {}\n    but: {}", matcher, mismatch);
+            panic!("\nExpected: {:?}\n    but: {:?}", matcher, mismatch);
         }
     }
 }

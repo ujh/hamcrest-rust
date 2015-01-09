@@ -16,7 +16,7 @@ impl<T: fmt::Show> Matcher<Option<T>> for IsNone<T> {
       return success();
     }
 
-    Err(format!("was {}", actual))
+    Err(format!("was {:?}", actual))
   }
 }
 

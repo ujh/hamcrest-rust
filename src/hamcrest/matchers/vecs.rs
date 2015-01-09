@@ -1,8 +1,8 @@
-use std::fmt::{mod, Show};
+use std::fmt::{self, Show};
 use std::vec::Vec;
 use {success, Matcher, MatchResult};
 
-#[deriving(Clone,Copy)]
+#[derive(Clone,Copy)]
 pub struct OfLen {
   len: uint
 }
@@ -25,10 +25,10 @@ impl<'a, T> Matcher<&'a Vec<T>> for OfLen {
 }
 
 pub fn of_len(len: uint) -> Box<OfLen> {
-  box OfLen { len: len }
+  Box::new(OfLen { len: len })
 }
 
-#[deriving(Clone)]
+#[derive(Clone)]
 pub struct Contains<T> {
     items: Vec<T>,
     exactly: bool
@@ -44,9 +44,9 @@ impl<T> Contains<T> {
 impl<T: Show> Show for Contains<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if self.exactly {
-            write!(f, "containing exactly {}", self.items)
+            write!(f, "containing exactly {:?}", self.items)
         } else {
-            write!(f, "containing {}", self.items)
+            write!(f, "containing {:?}", self.items)
         }
     }
 }
@@ -58,12 +58,12 @@ impl<'a, T: Show + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
     for item in self.items.iter() {
         match rem.iter().position(|a| *item == *a) {
             Some(idx) => { rem.remove(idx); },
-            None => return Err(format!("was {}", actual))
+            None => return Err(format!("was {:?}", actual))
         }
     }
 
     if self.exactly && !rem.is_empty() {
-        return Err(format!("also had {}", rem));
+        return Err(format!("also had {:?}", rem));
     }
 
     success()

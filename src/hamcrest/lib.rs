@@ -1,6 +1,9 @@
 #![crate_name = "hamcrest"]
 #![crate_type = "lib"]
 
+#![feature(int_uint)]
+#![allow(unstable)]
+
 extern crate collections;
 
 pub use core::{assert_that, expect, success, Matcher, MatchResult};

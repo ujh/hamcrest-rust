@@ -1,4 +1,4 @@
-use std::fmt::{mod, Show, Formatter};
+use std::fmt::{self, Show, Formatter};
 use std::num::{Float, NumCast, cast};
 use {success,Matcher,MatchResult};
 
@@ -26,7 +26,7 @@ impl<T : Float + PartialEq + Show> Matcher<T> for CloseTo<T> {
       success()
     }
     else {
-      Err(format!("was {}", actual))
+      Err(format!("was {:?}", actual))
     }
   }
 }
@@ -42,13 +42,13 @@ pub fn close_to_eps<T: Float + PartialEq + Show>(expected: T, epsilon: T) -> Clo
 #[cfg(test)]
 mod test {
   use std::num::Float;
-  use std::task;
+  use std::thread::Thread;
   use {assert_that,is,close_to,close_to_eps};
 
   #[test]
   fn test_equality_of_floats() {
-      let inf: f32 = Float::infinity();
-      let nan: f32 = Float::nan();
+    let inf: f32 = Float::infinity();
+    let nan: f32 = Float::nan();
 
     // Successful match
     assert_that(1.0f32, is(close_to(1.0)));
@@ -56,14 +56,16 @@ mod test {
     assert_that(1e-40f32, is(close_to_eps(0.0, 0.01)));
 
     // Unsuccessful match
-    assert!(task::try(|| {
+    assert!(Thread::scoped(|| {
       assert_that(2.0, is(close_to(1.0f32)));
-    }).is_err());
-    assert!(task::try(move || {
+    }).join().is_err());
+
+    assert!(Thread::scoped(move || {
       assert_that(nan, is(close_to(nan)));
-    }).is_err());
-    assert!(task::try(|| {
+    }).join().is_err());
+
+    assert!(Thread::scoped(|| {
       assert_that(1e-40f32, is(close_to_eps(0.0, 0.000001)));
-    }).is_err());
+    }).join().is_err());
   }
 }

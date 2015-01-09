@@ -27,7 +27,7 @@ pub struct IsNot<T, M> {
 
 impl<T, M : Matcher<T>> fmt::Show for IsNot<T, M> {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    write!(f, "not {}", self.matcher)
+    write!(f, "not {:?}", self.matcher)
   }
 }
 

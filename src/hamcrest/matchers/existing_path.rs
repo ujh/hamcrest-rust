@@ -2,14 +2,14 @@ use {success,expect,Matcher,MatchResult};
 use std::fmt;
 use std::io::fs::PathExtensions;
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub enum PathType {
   AnyType,
   File,
   Dir
 }
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct ExistingPath {
   path_type: PathType
 }
