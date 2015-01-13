@@ -4,19 +4,18 @@ use {success,Matcher,MatchResult};
 
 pub struct IsNone<T>;
 
-impl<T> fmt::Show for IsNone<T> {
+impl<T> fmt::String for IsNone<T> {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     write!(f, "none")
   }
 }
 
-impl<T: fmt::Show> Matcher<Option<T>> for IsNone<T> {
+impl<T: fmt::String> Matcher<Option<T>> for IsNone<T> {
   fn matches(&self, actual: Option<T>) -> MatchResult {
-    if actual.is_none() {
-      return success();
+    match actual {
+        Some(s) => Err(format!("was Some({})", s)),
+        None => success(),
     }
-
-    Err(format!("was {:?}", actual))
   }
 }
 

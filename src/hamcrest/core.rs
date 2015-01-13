@@ -19,11 +19,11 @@ pub fn assert_that<T, U: Matcher<T>>(actual: T, matcher: U) {
     match matcher.matches(actual) {
         Ok(_) => return,
         Err(mismatch) => {
-            panic!("\nExpected: {:?}\n    but: {:?}", matcher, mismatch);
+            panic!("\nExpected: {}\n    but: {}", matcher, mismatch);
         }
     }
 }
 
-pub trait Matcher<T>: fmt::Show {
+pub trait Matcher<T>: fmt::String {
   fn matches(&self, actual: T) -> MatchResult;
 }

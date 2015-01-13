@@ -1,4 +1,4 @@
-use std::fmt::{self, Show};
+use std::fmt;
 use std::vec::Vec;
 use {success, Matcher, MatchResult};
 
@@ -7,7 +7,7 @@ pub struct OfLen {
   len: uint
 }
 
-impl Show for OfLen {
+impl fmt::String for OfLen {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     write!(f, "of len {}", self.len)
   }
@@ -41,29 +41,29 @@ impl<T> Contains<T> {
     }
 }
 
-impl<T: Show> Show for Contains<T> {
+impl<T: fmt::String> fmt::String for Contains<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if self.exactly {
-            write!(f, "containing exactly {:?}", self.items)
+            write!(f, "containing exactly {}", Pretty(&self.items[]))
         } else {
-            write!(f, "containing {:?}", self.items)
+            write!(f, "containing {}", Pretty(&self.items[]))
         }
     }
 }
 
-impl<'a, T: Show + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
+impl<'a, T: fmt::String + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
   fn matches(&self, actual: &Vec<T>) -> MatchResult {
     let mut rem = actual.clone();
 
     for item in self.items.iter() {
         match rem.iter().position(|a| *item == *a) {
             Some(idx) => { rem.remove(idx); },
-            None => return Err(format!("was {:?}", actual))
+            None => return Err(format!("was {}", Pretty(&actual[])))
         }
     }
 
     if self.exactly && !rem.is_empty() {
-        return Err(format!("also had {:?}", rem));
+        return Err(format!("also had {}", Pretty(&rem[])));
     }
 
     success()
@@ -72,6 +72,19 @@ impl<'a, T: Show + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
 
 pub fn contains<T>(items: Vec<T>) -> Contains<T> {
   Contains { items: items, exactly: false }
+}
+
+struct Pretty<'a, T: 'a>(&'a [T]);
+
+impl<'a, T: fmt::String> fmt::String for Pretty<'a, T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        try!(write!(f, "["));
+        for (i, t) in self.0.iter().enumerate() {
+            if i != 0 { try!(write!(f, ", ")); }
+            try!(write!(f, "{}", t));
+        }
+        write!(f, "]")
+    }
 }
 
 #[cfg(test)]

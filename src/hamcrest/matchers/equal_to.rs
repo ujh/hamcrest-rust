@@ -1,17 +1,17 @@
-use std::fmt::{self, Show};
+use std::fmt;
 use {success,Matcher,MatchResult};
 
 pub struct EqualTo<T> {
   expected: T
 }
 
-impl<T: Show> fmt::Show for EqualTo<T> {
+impl<T: fmt::Show> fmt::String for EqualTo<T> {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
       self.expected.fmt(f)
   }
 }
 
-impl<T : PartialEq + Show> Matcher<T> for EqualTo<T> {
+impl<T : PartialEq + fmt::Show> Matcher<T> for EqualTo<T> {
   fn matches(&self, actual: T) -> MatchResult {
     if self.expected.eq(&actual) {
       success()
@@ -22,7 +22,7 @@ impl<T : PartialEq + Show> Matcher<T> for EqualTo<T> {
   }
 }
 
-pub fn equal_to<T : PartialEq + Show>(expected: T) -> EqualTo<T> {
+pub fn equal_to<T : PartialEq + fmt::Show>(expected: T) -> EqualTo<T> {
   EqualTo { expected: expected }
 }
 

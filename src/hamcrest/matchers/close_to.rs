@@ -1,4 +1,4 @@
-use std::fmt::{self, Show, Formatter};
+use std::fmt::{self, Formatter};
 use std::num::{Float, NumCast, cast};
 use {success,Matcher,MatchResult};
 
@@ -7,13 +7,13 @@ pub struct CloseTo<T> {
   epsilon: T
 }
 
-impl<T: Show> Show for CloseTo<T> {
+impl<T: fmt::String> fmt::String for CloseTo<T> {
   fn fmt(&self, f: &mut Formatter) -> fmt::Result {
       self.expected.fmt(f)
   }
 }
 
-impl<T : Float + PartialEq + Show> Matcher<T> for CloseTo<T> {
+impl<T : Float + PartialEq + fmt::String> Matcher<T> for CloseTo<T> {
   fn matches(&self, actual: T) -> MatchResult {
     let d = (self.expected - actual).abs();
 
@@ -26,16 +26,16 @@ impl<T : Float + PartialEq + Show> Matcher<T> for CloseTo<T> {
       success()
     }
     else {
-      Err(format!("was {:?}", actual))
+      Err(format!("was {}", actual))
     }
   }
 }
 
-pub fn close_to<T: Float + PartialEq + NumCast + Show>(expected: T) -> CloseTo<T> {
+pub fn close_to<T: Float + PartialEq + NumCast + fmt::String>(expected: T) -> CloseTo<T> {
     close_to_eps(expected, cast::<f32, T>(0.00001).unwrap())
 }
 
-pub fn close_to_eps<T: Float + PartialEq + Show>(expected: T, epsilon: T) -> CloseTo<T> {
+pub fn close_to_eps<T: Float + PartialEq + fmt::String>(expected: T, epsilon: T) -> CloseTo<T> {
   CloseTo { expected: expected, epsilon: epsilon }
 }
 
