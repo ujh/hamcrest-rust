@@ -24,6 +24,6 @@ pub fn assert_that<T, U: Matcher<T>>(actual: T, matcher: U) {
     }
 }
 
-pub trait Matcher<T>: fmt::String {
+pub trait Matcher<T>: fmt::Display {
   fn matches(&self, actual: T) -> MatchResult;
 }
