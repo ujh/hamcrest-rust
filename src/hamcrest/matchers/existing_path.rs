@@ -1,6 +1,6 @@
 use {success,expect,Matcher,MatchResult};
 use std::fmt;
-use std::io::fs::PathExtensions;
+use std::old_io::fs::PathExtensions;
 
 #[derive(Copy)]
 pub enum PathType {
