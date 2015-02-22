@@ -1,8 +1,10 @@
 use std::fmt;
-use {Matcher,MatchResult};
+use std::marker::PhantomData;
+use {Matcher, MatchResult};
 
 pub struct Is<T, M> {
-  matcher: M
+  matcher: M,
+  marker: PhantomData<T>,
 }
 
 impl<T, M: Matcher<T>> fmt::Display for Is<T, M> {
@@ -18,11 +20,12 @@ impl<T, M : Matcher<T>> Matcher<T> for Is<T, M> {
 }
 
 pub fn is<T, M: Matcher<T>>(matcher: M) -> Is<T, M> {
-  Is { matcher: matcher }
+  Is { matcher: matcher, marker: PhantomData }
 }
 
 pub struct IsNot<T, M> {
-  matcher: M
+  matcher: M,
+  marker: PhantomData<T>,
 }
 
 impl<T, M : Matcher<T>> fmt::Display for IsNot<T, M> {
@@ -41,5 +44,5 @@ impl<T, M : Matcher<T>> Matcher<T> for IsNot<T, M> {
 }
 
 pub fn is_not<T, M: Matcher<T>>(matcher: M) -> IsNot<T, M> {
-  IsNot { matcher: matcher }
+  IsNot { matcher: matcher, marker: PhantomData }
 }
