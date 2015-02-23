@@ -28,7 +28,7 @@ pub fn equal_to<T : PartialEq + fmt::Debug>(expected: T) -> EqualTo<T> {
 
 #[cfg(test)]
 mod test {
-    use std::thread::Thread;
+    use std::thread;
     use {assert_that,is,equal_to};
 
     #[test]
@@ -37,7 +37,7 @@ mod test {
         assert_that(&1, is(equal_to(&1i)));
 
         // Unsuccessful match
-        let res = Thread::scoped(|| {
+        let res = thread::spawn(|| {
           assert_that(&2, is(equal_to(&1i)));
         }).join();
 

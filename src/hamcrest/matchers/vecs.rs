@@ -44,9 +44,9 @@ impl<T> Contains<T> {
 impl<T: fmt::Display> fmt::Display for Contains<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if self.exactly {
-            write!(f, "containing exactly {}", Pretty(&self.items[]))
+            write!(f, "containing exactly {}", Pretty(&self.items))
         } else {
-            write!(f, "containing {}", Pretty(&self.items[]))
+            write!(f, "containing {}", Pretty(&self.items))
         }
     }
 }
@@ -58,12 +58,12 @@ impl<'a, T: fmt::Display + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T
     for item in self.items.iter() {
         match rem.iter().position(|a| *item == *a) {
             Some(idx) => { rem.remove(idx); },
-            None => return Err(format!("was {}", Pretty(&actual[])))
+            None => return Err(format!("was {}", Pretty(&actual)))
         }
     }
 
     if self.exactly && !rem.is_empty() {
-        return Err(format!("also had {}", Pretty(&rem[])));
+        return Err(format!("also had {}", Pretty(&rem)));
     }
 
     success()

@@ -1,8 +1,11 @@
 use std::fmt;
+use std::marker::PhantomData;
 
-use {success,Matcher,MatchResult};
+use {success, Matcher, MatchResult};
 
-pub struct IsNone<T>;
+pub struct IsNone<T> {
+  marker: PhantomData<T>,
+}
 
 impl<T> fmt::Display for IsNone<T> {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -20,7 +23,7 @@ impl<T: fmt::Display> Matcher<Option<T>> for IsNone<T> {
 }
 
 pub fn none<T>() -> IsNone<T> {
-  IsNone
+  IsNone { marker: PhantomData }
 }
 
 #[cfg(test)]

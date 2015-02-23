@@ -42,7 +42,7 @@ pub fn close_to_eps<T: Float + PartialEq + fmt::Display>(expected: T, epsilon: T
 #[cfg(test)]
 mod test {
   use std::num::Float;
-  use std::thread::Thread;
+  use std::thread;
   use {assert_that,is,close_to,close_to_eps};
 
   #[test]
@@ -56,15 +56,15 @@ mod test {
     assert_that(1e-40f32, is(close_to_eps(0.0, 0.01)));
 
     // Unsuccessful match
-    assert!(Thread::scoped(|| {
+    assert!(thread::spawn(|| {
       assert_that(2.0, is(close_to(1.0f32)));
     }).join().is_err());
 
-    assert!(Thread::scoped(move || {
+    assert!(thread::spawn(move || {
       assert_that(nan, is(close_to(nan)));
     }).join().is_err());
 
-    assert!(Thread::scoped(|| {
+    assert!(thread::spawn(|| {
       assert_that(1e-40f32, is(close_to_eps(0.0, 0.000001)));
     }).join().is_err());
   }
