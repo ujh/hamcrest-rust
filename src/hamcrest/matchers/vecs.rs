@@ -41,7 +41,7 @@ impl<T> Contains<T> {
     }
 }
 
-impl<T: fmt::Display> fmt::Display for Contains<T> {
+impl<T: fmt::Debug> fmt::Display for Contains<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         if self.exactly {
             write!(f, "containing exactly {}", Pretty(&self.items))
@@ -51,7 +51,7 @@ impl<T: fmt::Display> fmt::Display for Contains<T> {
     }
 }
 
-impl<'a, T: fmt::Display + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
+impl<'a, T: fmt::Debug + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
   fn matches(&self, actual: &Vec<T>) -> MatchResult {
     let mut rem = actual.clone();
 
@@ -76,12 +76,12 @@ pub fn contains<T>(items: Vec<T>) -> Contains<T> {
 
 struct Pretty<'a, T: 'a>(&'a [T]);
 
-impl<'a, T: fmt::Display> fmt::Display for Pretty<'a, T> {
+impl<'a, T: fmt::Debug> fmt::Display for Pretty<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         try!(write!(f, "["));
         for (i, t) in self.0.iter().enumerate() {
             if i != 0 { try!(write!(f, ", ")); }
-            try!(write!(f, "{}", t));
+            try!(write!(f, "{:?}", t));
         }
         write!(f, "]")
     }

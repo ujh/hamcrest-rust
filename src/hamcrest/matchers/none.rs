@@ -13,10 +13,10 @@ impl<T> fmt::Display for IsNone<T> {
   }
 }
 
-impl<T: fmt::Display> Matcher<Option<T>> for IsNone<T> {
+impl<T: fmt::Debug> Matcher<Option<T>> for IsNone<T> {
   fn matches(&self, actual: Option<T>) -> MatchResult {
     match actual {
-        Some(s) => Err(format!("was Some({})", s)),
+        Some(s) => Err(format!("was Some({:?})", s)),
         None => success(),
     }
   }
