@@ -1,6 +1,6 @@
 use std::fmt;
-use std::io::prelude::*;
 use std::path::{Path, PathBuf};
+use std::fs::PathExt;
 
 use {success, expect, Matcher, MatchResult};
 
@@ -60,7 +60,9 @@ pub fn existing_dir() -> ExistingPath {
 #[cfg(test)]
 mod test {
     use std::os;
-    use {assert_that,is,is_not,existing_file,existing_dir,existing_path};
+    use std::borrow::ToOwned;
+    use std::path::{Path, PathBuf};
+    use {assert_that, is, is_not, existing_file, existing_dir, existing_path};
 
     #[test]
     fn test_with_existing_file() {
@@ -89,7 +91,7 @@ mod test {
         assert_that(&path, is_not(existing_dir()));
     }
 
-    fn path(path: Option<String>, default: &str) -> Path {
-        Path::new(path.unwrap_or(default.to_string()))
+    fn path(path: Option<String>, default: &str) -> PathBuf {
+        Path::new(&path.unwrap_or(default.to_string())).to_owned()
     }
 }
