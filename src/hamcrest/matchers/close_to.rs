@@ -1,71 +1,70 @@
 use std::fmt::{self, Formatter};
-use std::num::{Float, NumCast, cast};
-use {success,Matcher,MatchResult};
+use {success, Matcher, MatchResult};
 
 pub struct CloseTo<T> {
-  expected: T,
-  epsilon: T
+    expected: T,
+    epsilon: T,
 }
 
 impl<T: fmt::Debug> fmt::Display for CloseTo<T> {
-  fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-      self.expected.fmt(f)
-  }
-}
-
-impl<T : Float + PartialEq + fmt::Debug> Matcher<T> for CloseTo<T> {
-  fn matches(&self, actual: T) -> MatchResult {
-    let d = (self.expected - actual).abs();
-
-    let close = self.expected == actual
-        || ((self.expected == Float::zero() || actual == Float::zero() || d < Float::min_pos_value(None)) &&
-            d < self.epsilon * Float::min_pos_value(None))
-        || d / (self.expected.abs() + actual.abs()) < self.epsilon;
-
-    if close {
-      success()
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        self.expected.fmt(f)
     }
-    else {
-      Err(format!("was {:?}", actual))
+}
+
+impl Matcher<f64> for CloseTo<f64> {
+    fn matches(&self, actual: f64) -> MatchResult {
+        let d = (self.expected - actual).abs();
+
+        let close = self.expected == actual
+            || ((self.expected == 0.0 || actual == 0.0 || d < f64::min_pos_value(None)) &&
+                d < self.epsilon * f64::min_pos_value(None))
+            || d / (self.expected.abs() + actual.abs()) < self.epsilon;
+
+        if close {
+            success()
+        }
+        else {
+            Err(format!("was {:?}", actual))
+        }
     }
-  }
 }
 
-pub fn close_to<T: Float + PartialEq + NumCast + fmt::Debug>(expected: T) -> CloseTo<T> {
-    close_to_eps(expected, cast::<f32, T>(0.00001).unwrap())
+pub fn close_to(expected: f64) -> CloseTo<f64> {
+    close_to_eps(expected, 0.00001)
 }
 
-pub fn close_to_eps<T: Float + PartialEq + fmt::Debug>(expected: T, epsilon: T) -> CloseTo<T> {
-  CloseTo { expected: expected, epsilon: epsilon }
+pub fn close_to_eps(expected: f64, epsilon: f64) -> CloseTo<f64> {
+    CloseTo { expected: expected, epsilon: epsilon }
 }
 
 #[cfg(test)]
 mod test {
-  use std::num::Float;
-  use std::thread;
-  use {assert_that,is,close_to,close_to_eps};
+    use std::num::Float;
+    use std::thread;
+    use {assert_that,is,close_to,close_to_eps};
 
-  #[test]
-  fn test_equality_of_floats() {
-    let inf: f32 = Float::infinity();
-    let nan: f32 = Float::nan();
+    #[test]
+    fn test_equality_of_floats() {
+        let inf: f64 = Float::infinity();
+        let nan: f64 = Float::nan();
 
-    // Successful match
-    assert_that(1.0f32, is(close_to(1.0)));
-    assert_that(inf, is(close_to(inf)));
-    assert_that(1e-40f32, is(close_to_eps(0.0, 0.01)));
+        // Successful match
+        assert_that(1.0f64, is(close_to(1.0)));
+        assert_that(inf, is(close_to(inf)));
+        assert_that(1e-40f64, is(close_to_eps(0.0, 0.01)));
 
-    // Unsuccessful match
-    assert!(thread::spawn(|| {
-      assert_that(2.0, is(close_to(1.0f32)));
-    }).join().is_err());
+        // Unsuccessful match
+        assert!(thread::spawn(|| {
+            assert_that(2.0, is(close_to(1.0f64)));
+        }).join().is_err());
 
-    assert!(thread::spawn(move || {
-      assert_that(nan, is(close_to(nan)));
-    }).join().is_err());
+        assert!(thread::spawn(move || {
+            assert_that(nan, is(close_to(nan)));
+        }).join().is_err());
 
-    assert!(thread::spawn(|| {
-      assert_that(1e-40f32, is(close_to_eps(0.0, 0.000001)));
-    }).join().is_err());
-  }
+        assert!(thread::spawn(|| {
+            assert_that(1e-40f64, is(close_to_eps(0.0, 0.000001)));
+        }).join().is_err());
+    }
 }

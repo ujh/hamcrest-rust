@@ -1,6 +1,6 @@
 use std::fmt;
 use std::path::{Path, PathBuf};
-use std::fs::PathExt;
+use std::fs;
 
 use {success, expect, Matcher, MatchResult};
 
@@ -18,9 +18,14 @@ pub struct ExistingPath {
 
 impl ExistingPath {
     fn match_path_type(&self, actual: &Path) -> MatchResult {
+        let metadata = fs::metadata(actual);
         match self.path_type {
-            PathType::File => expect(actual.is_file(), format!("`{}` was not a file", actual.display())),
-            PathType::Dir => expect(actual.is_dir(), format!("`{}` was not a dir", actual.display())),
+            PathType::File => expect(metadata.map(|m| m.is_file()).unwrap_or(false),
+                                      format!("`{}` was not a file",
+                                              actual.display())),
+            PathType::Dir => expect(metadata.map(|m| m.is_dir()).unwrap_or(false),
+                                    format!("`{}` was not a dir",
+                                            actual.display())),
             _ => success(),
         }
     }
@@ -40,7 +45,8 @@ impl<'a> Matcher<&'a PathBuf> for ExistingPath {
 
 impl<'a> Matcher<&'a Path> for ExistingPath {
     fn matches(&self, actual: &Path) -> MatchResult {
-        expect(actual.exists(), format!("{} was missing", actual.display()))
+        expect(fs::metadata(actual).is_ok(),
+               format!("{} was missing", actual.display()))
             .and(self.match_path_type(actual))
     }
 }

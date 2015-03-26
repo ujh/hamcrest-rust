@@ -4,28 +4,27 @@ use {success, Matcher, MatchResult};
 
 #[derive(Clone,Copy)]
 pub struct OfLen {
-  len: uint
+    len: usize
 }
 
 impl fmt::Display for OfLen {
-  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    write!(f, "of len {}", self.len)
-  }
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "of len {}", self.len)
+    }
 }
 
 impl<'a, T> Matcher<&'a Vec<T>> for OfLen {
-  fn matches(&self, actual: &Vec<T>) -> MatchResult {
-    if self.len == actual.len() {
-      success()
+    fn matches(&self, actual: &Vec<T>) -> MatchResult {
+        if self.len == actual.len() {
+            success()
+        } else {
+            Err(format!("was len {}", actual.len()))
+        }
     }
-    else {
-      Err(format!("was len {}", actual.len()))
-    }
-  }
 }
 
-pub fn of_len(len: uint) -> Box<OfLen> {
-  Box::new(OfLen { len: len })
+pub fn of_len(len: usize) -> Box<OfLen> {
+    Box::new(OfLen { len: len })
 }
 
 #[derive(Clone)]
@@ -52,26 +51,26 @@ impl<T: fmt::Debug> fmt::Display for Contains<T> {
 }
 
 impl<'a, T: fmt::Debug + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> {
-  fn matches(&self, actual: &Vec<T>) -> MatchResult {
-    let mut rem = actual.clone();
+    fn matches(&self, actual: &Vec<T>) -> MatchResult {
+        let mut rem = actual.clone();
 
-    for item in self.items.iter() {
-        match rem.iter().position(|a| *item == *a) {
-            Some(idx) => { rem.remove(idx); },
-            None => return Err(format!("was {}", Pretty(&actual)))
+        for item in self.items.iter() {
+            match rem.iter().position(|a| *item == *a) {
+                Some(idx) => { rem.remove(idx); },
+                None => return Err(format!("was {}", Pretty(&actual)))
+            }
         }
-    }
 
-    if self.exactly && !rem.is_empty() {
-        return Err(format!("also had {}", Pretty(&rem)));
-    }
+        if self.exactly && !rem.is_empty() {
+            return Err(format!("also had {}", Pretty(&rem)));
+        }
 
-    success()
-  }
+        success()
+    }
 }
 
 pub fn contains<T>(items: Vec<T>) -> Contains<T> {
-  Contains { items: items, exactly: false }
+    Contains { items: items, exactly: false }
 }
 
 struct Pretty<'a, T: 'a>(&'a [T]);
