@@ -1,4 +1,5 @@
 use std::fmt::{self, Formatter};
+use std::f64;
 use {success, Matcher, MatchResult};
 
 pub struct CloseTo<T> {
@@ -17,8 +18,8 @@ impl Matcher<f64> for CloseTo<f64> {
         let d = (self.expected - actual).abs();
 
         let close = self.expected == actual
-            || ((self.expected == 0.0 || actual == 0.0 || d < f64::min_pos_value(None)) &&
-                d < self.epsilon * f64::min_pos_value(None))
+            || ((self.expected == 0.0 || actual == 0.0 || d < f64::MIN_POSITIVE) &&
+                d < self.epsilon * f64::MIN_POSITIVE)
             || d / (self.expected.abs() + actual.abs()) < self.epsilon;
 
         if close {
