@@ -96,13 +96,13 @@ mod test {
 
     #[test]
     fn test_vec_contains() {
-        assert_that(&vec!(1i, 2, 3), contains(vec!(1i, 2)));
-        assert_that(&vec!(1i, 2, 3), not(contains(vec!(4i))));
+        assert_that(&vec!(1, 2, 3), contains(vec!(1, 2)));
+        assert_that(&vec!(1, 2, 3), not(contains(vec!(4))));
     }
 
     #[test]
     fn test_vec_contains_exactly() {
-        assert_that(&vec!(1i, 2, 3), contains(vec!(1i, 2, 3)).exactly());
-        assert_that(&vec!(1i, 2, 3), not(contains(vec!(1i, 2)).exactly()));
+        assert_that(&vec!(1, 2, 3), contains(vec!(1, 2, 3)).exactly());
+        assert_that(&vec!(1, 2, 3), not(contains(vec!(1, 2)).exactly()));
     }
 }
