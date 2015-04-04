@@ -4,14 +4,14 @@ use std::fs;
 
 use {success, expect, Matcher, MatchResult};
 
-#[derive(Copy)]
+#[derive(Clone, Copy)]
 pub enum PathType {
     AnyType,
     File,
     Dir
 }
 
-#[derive(Copy)]
+#[derive(Clone, Copy)]
 pub struct ExistingPath {
     path_type: PathType
 }
@@ -65,14 +65,14 @@ pub fn existing_dir() -> ExistingPath {
 
 #[cfg(test)]
 mod test {
-    use std::os;
+    use std::env;
     use std::borrow::ToOwned;
     use std::path::{Path, PathBuf};
     use {assert_that, is, is_not, existing_file, existing_dir, existing_path};
 
     #[test]
     fn test_with_existing_file() {
-        let path = path(os::getenv("TEST_EXISTS_FILE"), "./README.md");
+        let path = path(env::var("TEST_EXISTS_FILE"), "./README.md");
 
         assert_that(&path, is(existing_path()));
         assert_that(&path, is(existing_file()));
@@ -81,7 +81,7 @@ mod test {
 
     #[test]
     fn test_with_existing_dir() {
-        let path = path(os::getenv("TEST_EXISTS_DIR"), "./target");
+        let path = path(env::var("TEST_EXISTS_DIR"), "./target");
 
         assert_that(&path, is(existing_path()));
         assert_that(&path, is(existing_dir()));
@@ -90,14 +90,14 @@ mod test {
 
     #[test]
     fn test_with_nonexisting_path() {
-        let path = path(os::getenv("TEST_EXISTS_NONE"), "./zomg.txt");
+        let path = path(env::var("TEST_EXISTS_NONE"), "./zomg.txt");
 
         assert_that(&path, is_not(existing_path()));
         assert_that(&path, is_not(existing_file()));
         assert_that(&path, is_not(existing_dir()));
     }
 
-    fn path(path: Option<String>, default: &str) -> PathBuf {
+    fn path(path: Result<String, env::VarError>, default: &str) -> PathBuf {
         Path::new(&path.unwrap_or(default.to_string())).to_owned()
     }
 }

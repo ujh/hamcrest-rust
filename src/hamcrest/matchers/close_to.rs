@@ -41,18 +41,15 @@ pub fn close_to_eps(expected: f64, epsilon: f64) -> CloseTo<f64> {
 
 #[cfg(test)]
 mod test {
-    use std::num::Float;
+    use std::f64;
     use std::thread;
     use {assert_that,is,close_to,close_to_eps};
 
     #[test]
     fn test_equality_of_floats() {
-        let inf: f64 = Float::infinity();
-        let nan: f64 = Float::nan();
-
         // Successful match
         assert_that(1.0f64, is(close_to(1.0)));
-        assert_that(inf, is(close_to(inf)));
+        assert_that(f64::INFINITY, is(close_to(f64::INFINITY)));
         assert_that(1e-40f64, is(close_to_eps(0.0, 0.01)));
 
         // Unsuccessful match
@@ -61,7 +58,7 @@ mod test {
         }).join().is_err());
 
         assert!(thread::spawn(move || {
-            assert_that(nan, is(close_to(nan)));
+            assert_that(f64::NAN, is(close_to(f64::NAN)));
         }).join().is_err());
 
         assert!(thread::spawn(|| {

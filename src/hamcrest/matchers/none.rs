@@ -32,7 +32,7 @@ mod test {
 
   #[test]
   fn test_none_is_none() {
-    assert_that(None, is(none::<int>()));
-    assert_that(Some(1), is_not(none::<int>()));
+    assert_that(None, is(none::<i8>()));
+    assert_that(Some(1), is_not(none()));
   }
 }
