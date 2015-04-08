@@ -3,8 +3,3 @@
 name = "hamcrest"
 version = "0.1.0"
 authors = ["Carllerche <me@carllerche.com>"]
-
-[lib]
-
-name = "hamcrest"
-path = "src/hamcrest/lib.rs"

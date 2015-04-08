@@ -20,12 +20,16 @@ impl ExistingPath {
     fn match_path_type(&self, actual: &Path) -> MatchResult {
         let metadata = fs::metadata(actual);
         match self.path_type {
-            PathType::File => expect(metadata.map(|m| m.is_file()).unwrap_or(false),
-                                      format!("`{}` was not a file",
-                                              actual.display())),
-            PathType::Dir => expect(metadata.map(|m| m.is_dir()).unwrap_or(false),
-                                    format!("`{}` was not a dir",
-                                            actual.display())),
+            PathType::File => {
+                expect(
+                    metadata.map(|m| m.is_file()).unwrap_or(false),
+                    format!("`{}` was not a file", actual.display()))
+            }
+            PathType::Dir => {
+                expect(
+                    metadata.map(|m| m.is_dir()).unwrap_or(false),
+                    format!("`{}` was not a dir", actual.display()))
+            }
             _ => success(),
         }
     }

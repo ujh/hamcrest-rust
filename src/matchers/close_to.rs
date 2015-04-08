@@ -26,26 +26,6 @@ impl Matcher<f64> for CloseTo<f64> {
         }
 
         Err(format!("was {:?}", actual))
-
-        //let delta = (self.expected - actual).abs();
-
-        //if self.expected == actual {
-            //return success();
-        //}
-
-        //if self.expected == 0.0 || actual == 0.0 || delta < f64::MIN_POSITIVE {
-            //println!("~~~~~~~ ONE {}, {}, {}, {}, {}, {}", self.expected == 0.0, actual == 0.0, delta < f64::MIN_POSITIVE, delta, self.epsilon * f64::MIN_POSITIVE, self.epsilon);
-            //if delta < self.epsilon * f64::MIN_POSITIVE {
-                //return success();
-            //}
-        //}
-
-        //if delta / (self.expected.abs() + actual.abs()) < self.epsilon {
-            //println!("~~~~~~~ TWO");
-            //return success();
-        //}
-
-        //Err(format!("was {:?}", actual))
     }
 }
 
