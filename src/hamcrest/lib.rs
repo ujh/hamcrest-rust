@@ -6,7 +6,7 @@ pub use matchers::is::{is, is_not};
 pub use matchers::is::is_not as not;
 pub use matchers::none::{none};
 pub use matchers::equal_to::equal_to;
-pub use matchers::close_to::{close_to, close_to_eps};
+pub use matchers::close_to::close_to;
 pub use matchers::existing_path::{existing_path, existing_file, existing_dir};
 pub use matchers::vecs::{of_len, contains};
 
