@@ -23,8 +23,8 @@ impl<'a, T> Matcher<&'a Vec<T>> for OfLen {
     }
 }
 
-pub fn of_len(len: usize) -> Box<OfLen> {
-    Box::new(OfLen { len: len })
+pub fn of_len(len: usize) -> OfLen {
+    OfLen { len: len }
 }
 
 #[derive(Clone)]
@@ -91,7 +91,9 @@ mod test {
     use {
         not,
         assert_that,
-        contains
+        contains,
+        of_len,
+        is
     };
 
     #[test]
@@ -104,5 +106,11 @@ mod test {
     fn test_vec_contains_exactly() {
         assert_that(&vec!(1, 2, 3), contains(vec!(1, 2, 3)).exactly());
         assert_that(&vec!(1, 2, 3), not(contains(vec!(1, 2)).exactly()));
+    }
+
+    #[test]
+    fn test_vec_of_len() {
+        assert_that(&vec!(1i, 2, 3), of_len(3));
+        assert_that(&vec!(1i, 2, 3), is(of_len(3)));
     }
 }
