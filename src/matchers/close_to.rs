@@ -1,3 +1,5 @@
+use num::{Float};
+use num::traits::cast;
 use std::fmt::{self, Formatter};
 use {success, Matcher, MatchResult};
 
@@ -12,8 +14,8 @@ impl<T: fmt::Debug> fmt::Display for CloseTo<T> {
     }
 }
 
-impl Matcher<f64> for CloseTo<f64> {
-    fn matches(&self, actual: f64) -> MatchResult {
+impl<T: Float + fmt::Debug> Matcher<T> for CloseTo<T> {
+    fn matches(&self, actual: T) -> MatchResult {
         // Handle cases like infinity / nan
         if self.expected == actual {
             return success();
@@ -21,7 +23,7 @@ impl Matcher<f64> for CloseTo<f64> {
 
         let delta = (self.expected - actual).abs() - self.delta;
 
-        if delta <= 0.0 {
+        if delta <= cast(0.0).unwrap() {
             return success();
         }
 
@@ -49,6 +51,8 @@ mod test {
         assert_that(f64::INFINITY, is(close_to(f64::INFINITY, 0.00001)));
         assert_that(1e-40f64, is(close_to(0.0, 0.01)));
         assert_that(1e-40f64, is(close_to(0.0, 0.000001)));
+        assert_that(1e-40f32, is(close_to(0.0, 0.01)));
+        assert_that(1e-40f32, is(close_to(0.0, 0.000001)));
 
         // Unsuccessful match
         assert!(thread::spawn(|| {
