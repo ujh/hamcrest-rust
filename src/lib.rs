@@ -1,6 +1,8 @@
 #![crate_name = "hamcrest"]
 #![crate_type = "lib"]
 
+extern crate num;
+
 pub use core::{assert_that, expect, success, Matcher, MatchResult};
 pub use matchers::is::{is, is_not};
 pub use matchers::is::is_not as not;
