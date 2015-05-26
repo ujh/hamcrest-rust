@@ -40,6 +40,13 @@ let res = task::try(proc() {
 assert!(res.is_err());
 ```
 
+### close\_to
+
+```{rust}
+assert_that(1e-40f32, is(close_to(0.0, 0.01)));
+assert_that(1e-40f32, is_not(close_to(0.0, 0.000001)));
+```
+
 ### existing\_{file,path,dir}
 
 ```{rust}
