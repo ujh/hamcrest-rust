@@ -4,7 +4,6 @@ name = "hamcrest"
 version = "0.1.0"
 authors = ["Carllerche <me@carllerche.com>"]
 
-[dependencies]
+[dependencies.num]
 
-num = "*"
-
+git = "https://github.com/rust-lang/num"
