@@ -7,7 +7,7 @@ A port of [Hamcrest](http://hamcrest.org/) to [Rust](http://rust-lang.org).
 To use Hamcrest, add this to your `Cargo.toml`:
 
 ```
-[dependencies.hamcrest]
+[dev-dependencies.hamcrest]
 
 git = "https://github.com/carllerche/hamcrest-rust.git"
 ```
