@@ -19,25 +19,7 @@ impl<T: Debug> Display for CloseTo<T> {
     }
 }
 
-/// This is just a fix until rust-lang/num#93 is fixed.
-pub trait FloatMinPositive {
-    /// Returns the smallest positive, normalized value that this type can represent.
-    fn min_positive_value() -> Self;
-}
-
-impl FloatMinPositive for f32 {
-    fn min_positive_value() -> Self {
-        f32::MIN_POSITIVE
-    }
-}
-
-impl FloatMinPositive for f64 {
-    fn min_positive_value() -> Self {
-        f64::MIN_POSITIVE
-    }
-}
-
-impl<T: Float + Zero + FloatMinPositive + Debug> Matcher<T> for CloseTo<T> {
+impl<T: Float + Zero + Debug> Matcher<T> for CloseTo<T> {
     fn matches(&self, actual: T) -> MatchResult {
         let a = self.expected.abs();
         let b = actual.abs();
@@ -49,8 +31,8 @@ impl<T: Float + Zero + FloatMinPositive + Debug> Matcher<T> for CloseTo<T> {
             a == b
             // a or b is zero or both are extremely close to it
             // relative error is less meaningful here
-            || ((a == Zero::zero() || b == Zero::zero() || d < FloatMinPositive::min_positive_value()) &&
-                d < (self.epsilon * FloatMinPositive::min_positive_value()))
+            || ((a == Zero::zero() || b == Zero::zero() || d < Float::min_positive_value()) &&
+                d < (self.epsilon * Float::min_positive_value()))
             // use relative error
             || d / (a + b).min(Float::max_value()) < self.epsilon;
 
