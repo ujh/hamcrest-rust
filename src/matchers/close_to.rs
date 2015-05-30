@@ -1,6 +1,5 @@
 use num::{Float, Zero};
 use std::fmt::{self, Display, Debug, Formatter};
-use std::{f32, f64};
 use {success, Matcher, MatchResult};
 
 /// Compares two floating point values for equality.
