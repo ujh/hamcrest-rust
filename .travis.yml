@@ -1,2 +1,7 @@
 language: rust
-sudo: false
+rust:
+  - nightly
+  - stable
+os:
+  - linux
+  - osx
