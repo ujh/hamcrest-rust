@@ -2,7 +2,21 @@
 
 name = "hamcrest"
 version = "0.1.0"
-authors = ["Carllerche <me@carllerche.com>"]
+license = "MIT/Apache-2.0"
+authors = [
+  "Carl Lerche <me@carllerche.com>",
+  "Alex Crichton <alex@alexcrichton.com>",
+  "Ben Longbons <b.r.longbons@gmail.com>",
+  "Graham Dennis <graham.dennis@gmail.com>",
+  "Michael Gehring <mg@ebfe.org>",
+  "Oliver Mader <b52@reaktor42.de>",
+  "Robin Gloster <robin@loc-com.de>",
+  "Steve Klabnik <steve@steveklabnik.com>",
+  "Tamir Duberstein <tamird@gmail.com>",
+  "Thiago Pontes <thiagopnts@gmail.com>",
+  "Valerii Hiora <valerii.hiora@gmail.com>",
+  "Yehuda Katz <wycats@gmail.com>",
+]
 
 [dependencies]
 num = "0.1.25"
