@@ -38,19 +38,16 @@ pub fn equal_to<T : PartialEq + fmt::Debug>(expected: T) -> EqualTo<T> {
 
 #[cfg(test)]
 mod test {
-    use std::thread;
     use {assert_that,is,equal_to};
 
     #[test]
-    fn test_equality_of_ints() {
-        // Successful match
+    fn equality_of_ints() {
         assert_that(&1, is(equal_to(&1)));
+    }
 
-        // Unsuccessful match
-        let res = thread::spawn(|| {
-            assert_that(&2, is(equal_to(&1)));
-        }).join();
-
-        assert!(res.is_err());
+    #[test]
+    #[should_panic]
+    fn unsuccessful_match() {
+        assert_that(&2, is(equal_to(&1)));
     }
 }

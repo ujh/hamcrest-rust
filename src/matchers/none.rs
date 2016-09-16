@@ -41,8 +41,12 @@ mod test {
     use {assert_that,is,is_not,none};
 
     #[test]
-    fn test_none_is_none() {
+    fn none_is_none() {
         assert_that(None, is(none::<i8>()));
+    }
+
+    #[test]
+    fn some_is_not_none() {
         assert_that(Some(1), is_not(none()));
     }
 }
