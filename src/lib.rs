@@ -24,15 +24,7 @@ pub use matchers::existing_path::{existing_path, existing_file, existing_dir};
 pub use matchers::vecs::{of_len, contains};
 
 pub mod core;
-pub mod matchers {
-    pub mod equal_to;
-    pub mod close_to;
-    pub mod existing_path;
-    pub mod is;
-    pub mod none;
-    pub mod vecs;
-}
-
+pub mod matchers;
 pub mod prelude {
     pub use core::assert_that;
     pub use matchers::is::{is, is_not};
