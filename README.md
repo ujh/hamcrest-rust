@@ -24,7 +24,11 @@ After a quick `cargo build`, you should be good to go!
 ## Usage
 
 Hamcrest supports a number of matchers. You'll have to `use`
-them just like any other Rust library.
+them just like any other Rust library. Alternatively you can also `use` all of them at once like this:
+
+``` rust
+use hamcrest::prelude::*;
+```
 
 ### equal\_to
 
