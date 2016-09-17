@@ -85,7 +85,7 @@ mod test {
     use {assert_that, is, is_not, existing_file, existing_dir, existing_path};
 
     #[test]
-    fn test_with_existing_file() {
+    fn an_existing_file() {
         let path = path(env::var("TEST_EXISTS_FILE"), "./README.md");
 
         assert_that(&path, is(existing_path()));
@@ -94,7 +94,7 @@ mod test {
     }
 
     #[test]
-    fn test_with_existing_dir() {
+    fn an_existing_dir() {
         let path = path(env::var("TEST_EXISTS_DIR"), "./target");
 
         assert_that(&path, is(existing_path()));
@@ -103,7 +103,7 @@ mod test {
     }
 
     #[test]
-    fn test_with_nonexisting_path() {
+    fn a_nonexisting_path() {
         let path = path(env::var("TEST_EXISTS_NONE"), "./zomg.txt");
 
         assert_that(&path, is_not(existing_path()));

@@ -108,19 +108,19 @@ mod test {
     };
 
     #[test]
-    fn test_vec_contains() {
+    fn vec_contains() {
         assert_that(&vec!(1, 2, 3), contains(vec!(1, 2)));
         assert_that(&vec!(1, 2, 3), not(contains(vec!(4))));
     }
 
     #[test]
-    fn test_vec_contains_exactly() {
+    fn vec_contains_exactly() {
         assert_that(&vec!(1, 2, 3), contains(vec!(1, 2, 3)).exactly());
         assert_that(&vec!(1, 2, 3), not(contains(vec!(1, 2)).exactly()));
     }
 
     #[test]
-    fn test_vec_of_len() {
+    fn vec_of_len() {
         assert_that(&vec!(1, 2, 3), of_len(3));
         assert_that(&vec!(1, 2, 3), is(of_len(3)));
     }
