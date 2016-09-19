@@ -11,4 +11,5 @@ pub mod equal_to;
 pub mod existing_path;
 pub mod is;
 pub mod none;
+pub mod regex;
 pub mod vecs;
