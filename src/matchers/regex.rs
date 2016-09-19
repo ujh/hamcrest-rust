@@ -41,7 +41,7 @@ pub fn matches(regex: &str) -> Matches {
 mod test {
     use assert_that;
     use matches;
-    use not;
+    use does_not;
 
     #[test]
     fn succesful_match() {
@@ -50,11 +50,11 @@ mod test {
 
     #[test]
     fn successful_negative_match() {
-        assert_that("abc", not(matches(r"\d")));
+        assert_that("abc", does_not(matches(r"\d")));
     }
 
     #[test]
-    #[should_panic(expected = "Expected \\d to match \"abc\"")]
+    #[should_panic]
     fn unsuccessful_match() {
         assert_that("abc", matches(r"\d"));
     }
