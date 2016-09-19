@@ -33,7 +33,7 @@ use hamcrest::prelude::*;
 ### equal\_to
 
 ``` rust
-assert_that(&1, is(equal_to(&1i)));
+assert_that(1, is(equal_to(1)));
 ```
 
 ### close\_to
