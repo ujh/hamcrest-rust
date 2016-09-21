@@ -20,4 +20,4 @@ authors = [
 ]
 
 [dependencies]
-num = "0.1.25"
+num = "0.1.35"
