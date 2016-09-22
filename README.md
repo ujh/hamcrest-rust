@@ -14,7 +14,7 @@ git = "https://github.com/carllerche/hamcrest-rust.git"
 
 And this to your crate root:
 
-```{rust}
+``` rust
 #[cfg(test)]
 extern crate hamcrest;
 ```
