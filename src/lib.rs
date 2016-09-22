@@ -29,6 +29,7 @@ pub mod prelude {
     pub use matchers::equal_to::equal_to;
     pub use matchers::close_to::close_to;
     pub use matchers::existing_path::{existing_path, existing_file, existing_dir};
-    pub use matchers::regex::matches;
+    pub use matchers::regex::matches_regex;
+    pub use matchers::regex::matches_regex as match_regex;
     pub use matchers::vecs::{of_len, contains};
 }
