@@ -13,15 +13,10 @@
 #![crate_type = "lib"]
 
 extern crate num;
+extern crate regex;
 
-pub use core::{assert_that, expect, success, Matcher, MatchResult};
-pub use matchers::is::{is, is_not};
-pub use matchers::is::is_not as not;
-pub use matchers::none::{none};
-pub use matchers::equal_to::equal_to;
-pub use matchers::close_to::close_to;
-pub use matchers::existing_path::{existing_path, existing_file, existing_dir};
-pub use matchers::vecs::{of_len, contains};
+pub use core::{expect, success, Matcher, MatchResult};
+pub use prelude::*;
 
 pub mod core;
 pub mod matchers;
@@ -29,9 +24,12 @@ pub mod prelude {
     pub use core::assert_that;
     pub use matchers::is::{is, is_not};
     pub use matchers::is::is_not as not;
+    pub use matchers::is::is_not as does_not;
     pub use matchers::none::{none};
     pub use matchers::equal_to::equal_to;
     pub use matchers::close_to::close_to;
     pub use matchers::existing_path::{existing_path, existing_file, existing_dir};
+    pub use matchers::regex::matches_regex;
+    pub use matchers::regex::matches_regex as match_regex;
     pub use matchers::vecs::{of_len, contains};
 }

@@ -21,3 +21,4 @@ authors = [
 
 [dependencies]
 num = "0.1.35"
+regex = "0.1.77"

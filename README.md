@@ -14,7 +14,7 @@ git = "https://github.com/carllerche/hamcrest-rust.git"
 
 And this to your crate root:
 
-```{rust}
+``` rust
 #[cfg(test)]
 extern crate hamcrest;
 ```
@@ -32,28 +32,20 @@ use hamcrest::prelude::*;
 
 ### equal\_to
 
-```{rust}
-// Successful match
-assert_that(&1, is(equal_to(&1i)));
-
-// Unsuccessful match
-let res = task::try(proc() {
-    assert_that(&2, is(equal_to(&1i)));
-});
-
-assert!(res.is_err());
+``` rust
+assert_that(1, is(equal_to(1)));
 ```
 
 ### close\_to
 
-```{rust}
+``` rust
 assert_that(1e-40f32, is(close_to(0.0, 0.01)));
 assert_that(1e-40f32, is_not(close_to(0.0, 0.000001)));
 ```
 
 ### existing\_{file,path,dir}
 
-```{rust}
+``` rust
 assert_that(&path, is(existing_path()));
 assert_that(&path, is(existing_file()));
 assert_that(&path, is_not(existing_dir()));
@@ -61,19 +53,26 @@ assert_that(&path, is_not(existing_dir()));
 
 ### none
 
-```{rust}
+``` rust
 assert_that(None, is(none::<int>()));
 assert_that(Some(1), is_not(none::<int>()));
 ```
 
 ### contains and contains\_exactly
 
-```{rust}
+``` rust
 assert_that(&vec!(1i, 2, 3), contains(vec!(1i, 2)));
 assert_that(&vec!(1i, 2, 3), not(contains(vec!(4i))));
 
 assert_that(&vec!(1i, 2, 3), contains(vec!(1i, 2, 3)).exactly());
 assert_that(&vec!(1i, 2, 3), not(contains(vec!(1i, 2)).exactly()));
+```
+
+### matches
+
+``` rust
+assert_that("1234", matches_regex(r"\d"));
+assert_that("abc", does_not(match_regex(r"\d")));
 ```
 
 ## License
