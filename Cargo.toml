@@ -1,6 +1,7 @@
 [project]
 
 name = "hamcrest"
+description = "A port of the Hamcrest testing library"
 version = "0.1.1"
 license = "MIT/Apache-2.0"
 authors = [
