@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/carllerche/hamcrest-rust.svg?branch=master)](https://travis-ci.org/carllerche/hamcrest-rust)
+
 # Hamcrest
 
 A port of [Hamcrest](http://hamcrest.org/) to [Rust](http://rust-lang.org).
