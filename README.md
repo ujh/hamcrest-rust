@@ -68,7 +68,7 @@ assert_that(&vec!(1i, 2, 3), contains(vec!(1i, 2, 3)).exactly());
 assert_that(&vec!(1i, 2, 3), not(contains(vec!(1i, 2)).exactly()));
 ```
 
-### matches
+### matches_regex
 
 ``` rust
 assert_that("1234", matches_regex(r"\d"));
