@@ -1,5 +1,6 @@
 // Copyright 2014 Carl Lerche, Steve Klabnik, Alex Crichton
 // Copyright 2015 Carl Lerche
+// Copyright 2016 Urban Hafner
 //
 // Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 // http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
@@ -24,6 +25,7 @@ pub fn expect(predicate: bool, msg: String) -> MatchResult {
     }
 }
 
+#[deprecated(since = "0.1.2", note = "Use the assert_that! macro instead")]
 pub fn assert_that<T, U: Matcher<T>>(actual: T, matcher: U) {
     match matcher.matches(actual) {
         Ok(_) => return,

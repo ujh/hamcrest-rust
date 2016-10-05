@@ -18,10 +18,23 @@ extern crate regex;
 pub use core::{expect, success, Matcher, MatchResult};
 pub use prelude::*;
 
+#[macro_export]
+macro_rules! assert_that {
+    ($actual:expr, $matcher:expr) => (
+        use hamcrest::Matcher;
+        match $matcher.matches($actual) {
+            Ok(_) => return,
+            Err(mismatch) => {
+                panic!("\nExpected: {}\n    but: {}", $matcher, mismatch);
+            }
+        }
+    );
+}
+
 pub mod core;
 pub mod matchers;
 pub mod prelude {
-    pub use core::assert_that;
+    #[allow(deprecated)] pub use core::assert_that;
     pub use matchers::is::{is, is_not};
     pub use matchers::is::is_not as not;
     pub use matchers::is::is_not as does_not;

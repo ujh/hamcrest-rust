@@ -6,11 +6,11 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-extern crate hamcrest;
+#[macro_use] extern crate hamcrest;
 
 use hamcrest::prelude::*;
 
 #[test]
 fn it_successfully_uses_imported_functions() {
-    assert_that(1, is(equal_to(1)));
+    assert_that!(1, is(equal_to(1)));
 }
