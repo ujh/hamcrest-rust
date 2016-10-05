@@ -21,8 +21,6 @@ And this to your crate root:
 extern crate hamcrest;
 ```
 
-Make sure to not rename the crate as this breaks the macro functionality!
-
 After a quick `cargo build`, you should be good to go!
 
 ## Usage

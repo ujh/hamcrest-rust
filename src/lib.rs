@@ -15,15 +15,14 @@
 extern crate num;
 extern crate regex;
 
-pub use core::{expect, success, Matcher, MatchResult};
+pub use core::{expect, success, MatchResult};
 pub use prelude::*;
 
 #[macro_export]
 macro_rules! assert_that {
     ($actual:expr, $matcher:expr) => (
-        use hamcrest::Matcher;
         match $matcher.matches($actual) {
-            Ok(_) => return,
+            Ok(_) => {},
             Err(mismatch) => {
                 panic!("\nExpected: {}\n    but: {}", $matcher, mismatch);
             }
@@ -45,4 +44,5 @@ pub mod prelude {
     pub use matchers::regex::matches_regex;
     pub use matchers::regex::matches_regex as match_regex;
     pub use matchers::vecs::{of_len, contains};
+    pub use core::Matcher;
 }
