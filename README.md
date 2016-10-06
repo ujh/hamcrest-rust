@@ -16,21 +16,20 @@ hamcrest = "*"
 And this to your crate root:
 
 ``` rust
-#[cfg(test)]
-#[macro_use]
-extern crate hamcrest;
+#[cfg(test)] #[macro_use] extern crate hamcrest;
 ```
 
 After a quick `cargo build`, you should be good to go!
 
 ## Usage
 
-Hamcrest supports a number of matchers. You'll have to `use`
-them just like any other Rust library. Alternatively you can also `use` all of them at once like this:
+Hamcrest supports a number of matchers. The easiest way is to just `use` them all like this:
 
 ``` rust
 use hamcrest::prelude::*;
 ```
+
+If you want to be more selective make sure that you also import the `HamcrestMatcher` trait.
 
 ### equal\_to
 
