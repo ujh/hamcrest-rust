@@ -15,7 +15,6 @@
 extern crate num;
 extern crate regex;
 
-pub use core::{expect, success, MatchResult};
 pub use prelude::*;
 
 #[macro_export]
