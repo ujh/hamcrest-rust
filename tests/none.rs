@@ -19,8 +19,7 @@ mod none {
 
     #[test]
     fn some_is_not_none() {
-        let matcher = is_not(none());
-        assert_that!(Some(1), matcher);
+        assert_that!(Some(1), is_not(none()));
     }
 
 }

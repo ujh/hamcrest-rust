@@ -20,13 +20,19 @@ pub use prelude::*;
 
 #[macro_export]
 macro_rules! assert_that {
-    ($actual:expr, $matcher:expr) => (
-        match $matcher.matches($actual) {
+    ($actual:expr, $matcher:expr) => ({
+        // The separate statement is necessary to keep the compiler happy.
+        let m = $matcher;
+        match m.matches($actual) {
             Ok(_) => {},
             Err(mismatch) => {
-                panic!("\nExpected: {}\n    but: {}", $matcher, mismatch);
+                // The panic macro produces the correct file and line number
+                // when used in a macro like this, i.e. it's the line where
+                // the macro was originally written.
+                panic!("\nExpected: {}\n    but: {}", m, mismatch);
             }
         }
+    }
     );
 }
 

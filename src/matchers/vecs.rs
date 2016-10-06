@@ -2,6 +2,7 @@
 //                Ben Longbons
 // Copyright 2015 Carl Lerche, Graham Dennis, Alex Crichton, Tamir Duberstein,
 //                Robin Gloster
+// Copyright 2016 Urban Hafner
 //
 // Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 // http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
@@ -94,34 +95,5 @@ impl<'a, T: fmt::Debug> fmt::Display for Pretty<'a, T> {
             try!(write!(f, "{:?}", t));
         }
         write!(f, "]")
-    }
-}
-
-#[cfg(test)]
-mod test {
-    use {
-        not,
-        assert_that,
-        contains,
-        of_len,
-        is
-    };
-
-    #[test]
-    fn vec_contains() {
-        assert_that(&vec!(1, 2, 3), contains(vec!(1, 2)));
-        assert_that(&vec!(1, 2, 3), not(contains(vec!(4))));
-    }
-
-    #[test]
-    fn vec_contains_exactly() {
-        assert_that(&vec!(1, 2, 3), contains(vec!(1, 2, 3)).exactly());
-        assert_that(&vec!(1, 2, 3), not(contains(vec!(1, 2)).exactly()));
-    }
-
-    #[test]
-    fn vec_of_len() {
-        assert_that(&vec!(1, 2, 3), of_len(3));
-        assert_that(&vec!(1, 2, 3), is(of_len(3)));
     }
 }

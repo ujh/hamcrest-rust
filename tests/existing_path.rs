@@ -18,34 +18,25 @@ mod existing_path {
     #[test]
     fn an_existing_file() {
         let path = path(env::var("TEST_EXISTS_FILE"), "./README.md");
-        let matcher = is(existing_path());
-        assert_that!(&path, matcher);
-        let matcher2 = is(existing_file());
-        assert_that!(&path, matcher2);
-        let matcher3 = is_not(existing_dir());
-        assert_that!(&path, matcher3);
+        assert_that!(&path, is(existing_path()));
+        assert_that!(&path, is(existing_file()));
+        assert_that!(&path, is_not(existing_dir()));
     }
 
     #[test]
     fn an_existing_dir() {
         let path = path(env::var("TEST_EXISTS_DIR"), "./target");
-        let matcher = is(existing_path());
-        assert_that!(&path, matcher);
-        let matcher2 = is(existing_dir());
-        assert_that!(&path, matcher2);
-        let matcher3 = is_not(existing_file());
-        assert_that!(&path, matcher3);
+        assert_that!(&path, is(existing_path()));
+        assert_that!(&path, is(existing_dir()));
+        assert_that!(&path, is_not(existing_file()));
     }
 
     #[test]
     fn a_nonexisting_path() {
         let path = path(env::var("TEST_EXISTS_NONE"), "./zomg.txt");
-        let matcher = is_not(existing_path());
-        assert_that!(&path, matcher);
-        let matcher2 = is_not(existing_file());
-        assert_that!(&path, matcher2);
-        let matcher3 = is_not(existing_dir());
-        assert_that!(&path, matcher3);
+        assert_that!(&path, is_not(existing_path()));
+        assert_that!(&path, is_not(existing_file()));
+        assert_that!(&path, is_not(existing_dir()));
     }
 
     pub fn path(path: Result<String, env::VarError>, default: &str) -> PathBuf {
