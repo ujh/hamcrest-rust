@@ -12,7 +12,8 @@
 
 use std::fmt;
 use std::vec::Vec;
-use {success, Matcher, MatchResult};
+
+use core::*;
 
 #[derive(Clone,Copy)]
 pub struct OfLen {

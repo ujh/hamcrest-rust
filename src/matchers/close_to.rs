@@ -11,7 +11,8 @@
 
 use num::{Float, Zero};
 use std::fmt::{self, Display, Debug, Formatter};
-use {success, Matcher, MatchResult};
+
+use core::*;
 
 /// Compares two floating point values for equality.
 ///

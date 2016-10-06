@@ -13,7 +13,7 @@ use std::fmt;
 use std::path::{Path, PathBuf};
 use std::fs;
 
-use {success, expect, Matcher, MatchResult};
+use core::*;
 
 #[derive(Clone, Copy)]
 pub enum PathType {

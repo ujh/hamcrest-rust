@@ -50,5 +50,5 @@ pub mod prelude {
     pub use matchers::regex::matches_regex;
     pub use matchers::regex::matches_regex as match_regex;
     pub use matchers::vecs::{of_len, contains};
-    pub use core::Matcher;
+    pub use core::Matcher as HamcrestMatcher;
 }

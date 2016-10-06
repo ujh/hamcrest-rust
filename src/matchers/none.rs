@@ -12,7 +12,7 @@
 use std::fmt;
 use std::marker::PhantomData;
 
-use {success, Matcher, MatchResult};
+use core::*;
 
 pub struct IsNone<T> {
     marker: PhantomData<T>,

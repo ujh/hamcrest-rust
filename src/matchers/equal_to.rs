@@ -10,7 +10,8 @@
 // except according to those terms.
 
 use std::fmt;
-use {success,Matcher,MatchResult};
+
+use core::*;
 
 pub struct EqualTo<T> {
     expected: T

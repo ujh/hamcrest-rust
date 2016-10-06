@@ -6,11 +6,10 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Matcher;
-use MatchResult;
 use regex::Regex;
 use std::fmt;
-use success;
+
+use core::*;
 
 pub struct MatchesRegex {
     regex: Regex

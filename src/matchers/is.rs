@@ -9,7 +9,8 @@
 
 use std::fmt;
 use std::marker::PhantomData;
-use {Matcher, MatchResult};
+
+use core::*;
 
 pub struct Is<T, M> {
     matcher: M,
