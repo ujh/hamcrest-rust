@@ -1,10 +1,12 @@
 [project]
-
 name = "hamcrest"
 description = "A port of the Hamcrest testing library"
 version = "0.1.1"
 keywords = ["unit", "matcher", "testing", "assertions", "tdd"]
 license = "MIT/Apache-2.0"
+repository = "https://github.com/carllerche/hamcrest-rust"
+documentation = "https://docs.rs/hamcrest"
+readme = "README.md"
 authors = [
   "Carl Lerche <me@carllerche.com>",
   "Alex Crichton <alex@alexcrichton.com>",
