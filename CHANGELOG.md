@@ -1,8 +1,9 @@
-## 0.1.2 (unreleased) [☰](https://github.com/carllerche/hamcrest-rust/compare/0.1.2...0.1.1)
+## 0.1.2 [☰](https://github.com/carllerche/hamcrest-rust/compare/0.1.2...0.1.1)
 
 * Added the `assert_that!` macro. It produces better error messages (with correct file and line
   number).
 * Deprecated the `assert_that` function.
+* Improvements to `Cargo.toml` (by @killercup)
 
 ## 0.1.1 [☰](https://github.com/carllerche/hamcrest-rust/compare/a9f18681c64e3126ef6ccbd68ec2a5b39fe5b58b...0.1.1)
 
