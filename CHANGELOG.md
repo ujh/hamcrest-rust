@@ -1,4 +1,4 @@
-## 0.1.2 [☰](https://github.com/carllerche/hamcrest-rust/compare/0.1.2...0.1.1)
+## 0.1.2 [☰](https://github.com/carllerche/hamcrest-rust/compare/0.1.1...0.1.2)
 
 * Added the `assert_that!` macro. It produces better error messages (with correct file and line
   number).
