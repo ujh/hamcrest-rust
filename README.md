@@ -16,64 +16,64 @@ hamcrest = "*"
 And this to your crate root:
 
 ``` rust
-#[cfg(test)]
-extern crate hamcrest;
+#[cfg(test)] #[macro_use] extern crate hamcrest;
 ```
 
 After a quick `cargo build`, you should be good to go!
 
 ## Usage
 
-Hamcrest supports a number of matchers. You'll have to `use`
-them just like any other Rust library. Alternatively you can also `use` all of them at once like this:
+Hamcrest supports a number of matchers. The easiest way is to just `use` them all like this:
 
 ``` rust
 use hamcrest::prelude::*;
 ```
 
+If you want to be more selective make sure that you also import the `HamcrestMatcher` trait.
+
 ### equal\_to
 
 ``` rust
-assert_that(1, is(equal_to(1)));
+assert_that!(1, is(equal_to(1)));
 ```
 
 ### close\_to
 
 ``` rust
-assert_that(1e-40f32, is(close_to(0.0, 0.01)));
-assert_that(1e-40f32, is_not(close_to(0.0, 0.000001)));
+assert_that!(1e-40f32, is(close_to(0.0, 0.01)));
+assert_that!(1e-40f32, is_not(close_to(0.0, 0.000001)));
 ```
 
 ### existing\_{file,path,dir}
 
 ``` rust
-assert_that(&path, is(existing_path()));
-assert_that(&path, is(existing_file()));
-assert_that(&path, is_not(existing_dir()));
+assert_that!(&path, is(existing_path()));
+assert_that!(&path, is(existing_file()));
+assert_that!(&path, is_not(existing_dir()));
 ```
 
 ### none
 
 ``` rust
-assert_that(None, is(none::<int>()));
-assert_that(Some(1), is_not(none::<int>()));
+assert_that!(None, is(none::<int>()));
+assert_that!(Some(1), is_not(none::<int>()));
 ```
 
 ### contains and contains\_exactly
 
 ``` rust
-assert_that(&vec!(1i, 2, 3), contains(vec!(1i, 2)));
-assert_that(&vec!(1i, 2, 3), not(contains(vec!(4i))));
+assert_that!(&vec!(1i, 2, 3), contains(vec!(1i, 2)));
+assert_that!(&vec!(1i, 2, 3), not(contains(vec!(4i))));
 
-assert_that(&vec!(1i, 2, 3), contains(vec!(1i, 2, 3)).exactly());
-assert_that(&vec!(1i, 2, 3), not(contains(vec!(1i, 2)).exactly()));
+assert_that!(&vec!(1i, 2, 3), contains(vec!(1i, 2, 3)).exactly());
+assert_that!(&vec!(1i, 2, 3), not(contains(vec!(1i, 2)).exactly()));
 ```
 
 ### matches_regex
 
 ``` rust
-assert_that("1234", matches_regex(r"\d"));
-assert_that("abc", does_not(match_regex(r"\d")));
+assert_that!("1234", matches_regex(r"\d"));
+assert_that!("abc", does_not(match_regex(r"\d")));
 ```
 
 ## License

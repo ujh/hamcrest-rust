@@ -1,6 +1,7 @@
 // Copyright 2014 Steve Klabnik, Valerii Hiora, Oliver Mader
 // Copyright 2015 Carl Lerche, Oliver Mader, Alex Crichton, Graham Dennis,
 //                Tamir Duberstein, Robin Gloster
+// Copyright 2016 Urban Hafner
 //
 // Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 // http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
@@ -10,7 +11,8 @@
 
 use num::{Float, Zero};
 use std::fmt::{self, Display, Debug, Formatter};
-use {success, Matcher, MatchResult};
+
+use core::*;
 
 /// Compares two floating point values for equality.
 ///
@@ -57,29 +59,5 @@ pub fn close_to<T>(expected: T, epsilon: T) -> CloseTo<T> {
     CloseTo {
         expected: expected,
         epsilon: epsilon
-    }
-}
-
-#[cfg(test)]
-mod test {
-    use std::f64;
-    use {assert_that,is,not,close_to};
-
-    #[test]
-    fn equality_of_floats() {
-        assert_that(1.0f64, is(close_to(1.0, 0.00001)));
-        assert_that(1e-40f32, is(close_to(0.0, 0.01)));
-        assert_that(1e-40f32, is(not(close_to(0.0, 0.000001))));
-        assert_that(2.0, is(not(close_to(1.0f64, 0.00001))));
-    }
-
-    #[test]
-    fn it_can_handle_infinity() {
-        assert_that(f64::INFINITY, is(close_to(f64::INFINITY, 0.00001)));
-    }
-
-    #[test]
-    fn it_can_handle_nan() {
-        assert_that(f64::NAN, is(not(close_to(f64::NAN, 0.00001))));
     }
 }

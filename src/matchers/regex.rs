@@ -6,11 +6,10 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use Matcher;
-use MatchResult;
 use regex::Regex;
 use std::fmt;
-use success;
+
+use core::*;
 
 pub struct MatchesRegex {
     regex: Regex
@@ -35,28 +34,4 @@ impl<'a> Matcher<&'a str> for MatchesRegex {
 
 pub fn matches_regex(regex: &str) -> MatchesRegex {
     MatchesRegex { regex: Regex::new(regex).unwrap() }
-}
-
-#[cfg(test)]
-mod test {
-    use assert_that;
-    use matches_regex;
-    use does_not;
-
-    #[test]
-    fn succesful_match() {
-        assert_that("123", matches_regex(r"^\d+$"));
-    }
-
-    #[test]
-    fn successful_negative_match() {
-        assert_that("abc", does_not(matches_regex(r"\d")));
-    }
-
-    #[test]
-    #[should_panic]
-    fn unsuccessful_match() {
-        assert_that("abc", matches_regex(r"\d"));
-    }
-
 }

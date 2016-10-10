@@ -6,11 +6,20 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-extern crate hamcrest;
+#[macro_use] extern crate hamcrest;
 
-use hamcrest::prelude::*;
+mod none {
 
-#[test]
-fn it_successfully_uses_imported_functions() {
-    assert_that(1, is(equal_to(1)));
+    use hamcrest::prelude::*;
+
+    #[test]
+    fn none_is_none() {
+        assert_that!(None, is(none::<i8>()));
+    }
+
+    #[test]
+    fn some_is_not_none() {
+        assert_that!(Some(1), is_not(none()));
+    }
+
 }
