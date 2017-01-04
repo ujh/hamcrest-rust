@@ -44,6 +44,7 @@ pub mod prelude {
     pub use matchers::compared_to::less_than;
     pub use matchers::compared_to::less_than_or_equal_to;
     pub use matchers::compared_to::greater_than;
+    pub use matchers::compared_to::greater_than_or_equal_to;
     pub use matchers::equal_to::equal_to;
     pub use matchers::existing_path::existing_dir;
     pub use matchers::existing_path::existing_file;

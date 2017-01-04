@@ -1,3 +1,4 @@
+// Copyright 2016 Urban Hafner
 // Copyright 2017 Matt LaChance
 //
 // Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
@@ -56,6 +57,18 @@ mod compared_to {
     #[should_panic]
     fn unsuccessful_less_than_or_equal() {
         assert_that!(4, is(less_than_or_equal_to(3)));
+    }
+
+    #[test]
+    fn ints_greater_than_or_equal() {
+        assert_that!(6, is(greater_than_or_equal_to(5)));
+        assert_that!(8, is(greater_than_or_equal_to(8)));
+    }
+
+    #[test]
+    #[should_panic]
+    fn unsuccessful_greater_than_or_equal() {
+        assert_that!(4, is(greater_than_or_equal_to(5)));
     }
 
 }

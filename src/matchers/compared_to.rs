@@ -2,6 +2,7 @@
 //                Ben Longbons
 // Copyright 2015 Carl Lerche, Alex Crichton, Robin Gloster
 // Copyright 2016 Urban Hafner
+// Copyright 2017 Matt LaChance
 //
 // Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 // http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
@@ -16,6 +17,7 @@ use core::*;
 enum CompareOperation {
     LessOrEqual,
     LessThan,
+    GreaterOrEqual,
     GreaterThan,
 }
 
@@ -29,6 +31,7 @@ impl<T: fmt::Debug> fmt::Display for ComparedTo<T> {
         let operation = match self.operation {
             CompareOperation::LessOrEqual => "<=",
             CompareOperation::LessThan => "<",
+            CompareOperation::GreaterOrEqual => ">=",
             CompareOperation::GreaterThan => ">",
         };
 
@@ -41,6 +44,7 @@ impl<T : PartialOrd + fmt::Debug> Matcher<T> for ComparedTo<T> {
         let it_succeeded = match self.operation {
             CompareOperation::LessOrEqual => actual <= self.right_hand_side,
             CompareOperation::LessThan => actual < self.right_hand_side,
+            CompareOperation::GreaterOrEqual => actual >= self.right_hand_side,
             CompareOperation::GreaterThan => actual > self.right_hand_side,
         };
 
@@ -70,6 +74,13 @@ pub fn less_than_or_equal_to<T : PartialOrd + fmt::Debug>(right_hand_side: T) ->
 pub fn greater_than<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
     ComparedTo {
         operation: CompareOperation::GreaterThan,
+        right_hand_side: right_hand_side
+    }
+}
+
+pub fn greater_than_or_equal_to<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
+    ComparedTo {
+        operation: CompareOperation::GreaterOrEqual,
         right_hand_side: right_hand_side
     }
 }
