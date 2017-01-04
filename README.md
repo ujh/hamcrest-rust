@@ -59,7 +59,7 @@ assert_that!(None, is(none::<int>()));
 assert_that!(Some(1), is_not(none::<int>()));
 ```
 
-### contains and contains\_exactly
+### contains, contains\_exactly, contains\_in order
 
 ``` rust
 assert_that!(&vec!(1i, 2, 3), contains(vec!(1i, 2)));
@@ -67,6 +67,9 @@ assert_that!(&vec!(1i, 2, 3), not(contains(vec!(4i))));
 
 assert_that!(&vec!(1i, 2, 3), contains(vec!(1i, 2, 3)).exactly());
 assert_that!(&vec!(1i, 2, 3), not(contains(vec!(1i, 2)).exactly()));
+
+assert_that!(&vec!(1i, 2, 3), contains(vec!(1i, 2)).in_order());
+assert_that!(&vec!(1i, 2, 3), not(contains(vec!(1i, 3)).in_order()));
 ```
 
 ### matches_regex
