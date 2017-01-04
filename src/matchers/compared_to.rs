@@ -14,6 +14,7 @@ use std::fmt;
 use core::*;
 
 enum CompareOperation {
+    LessOrEqual,
     LessThan,
     GreaterThan,
 }
@@ -26,6 +27,7 @@ pub struct ComparedTo<T> {
 impl<T: fmt::Debug> fmt::Display for ComparedTo<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let operation = match self.operation {
+            CompareOperation::LessOrEqual => "<=",
             CompareOperation::LessThan => "<",
             CompareOperation::GreaterThan => ">",
         };
@@ -37,6 +39,7 @@ impl<T: fmt::Debug> fmt::Display for ComparedTo<T> {
 impl<T : PartialOrd + fmt::Debug> Matcher<T> for ComparedTo<T> {
     fn matches(&self, actual: T) -> MatchResult {
         let it_succeeded = match self.operation {
+            CompareOperation::LessOrEqual => actual <= self.right_hand_side,
             CompareOperation::LessThan => actual < self.right_hand_side,
             CompareOperation::GreaterThan => actual > self.right_hand_side,
         };
@@ -53,6 +56,13 @@ impl<T : PartialOrd + fmt::Debug> Matcher<T> for ComparedTo<T> {
 pub fn less_than<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
     ComparedTo {
         operation: CompareOperation::LessThan,
+        right_hand_side: right_hand_side
+    }
+}
+
+pub fn less_than_or_equal_to<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
+    ComparedTo {
+        operation: CompareOperation::LessOrEqual,
         right_hand_side: right_hand_side
     }
 }

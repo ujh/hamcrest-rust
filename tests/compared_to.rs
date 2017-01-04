@@ -46,4 +46,16 @@ mod compared_to {
         assert_that!(2, is(greater_than(2)));
     }
 
+    #[test]
+    fn ints_less_than_or_equal() {
+        assert_that!(3, is(less_than_or_equal_to(7)));
+        assert_that!(3, is(less_than_or_equal_to(3)));
+    }
+
+    #[test]
+    #[should_panic]
+    fn unsuccessful_less_than_or_equal() {
+        assert_that!(4, is(less_than_or_equal_to(3)));
+    }
+
 }
