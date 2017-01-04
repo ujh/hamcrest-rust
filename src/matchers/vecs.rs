@@ -43,12 +43,18 @@ pub fn of_len(len: usize) -> OfLen {
 #[derive(Clone)]
 pub struct Contains<T> {
     items: Vec<T>,
-    exactly: bool
+    exactly: bool,
+    in_order: bool
 }
 
 impl<T> Contains<T> {
     pub fn exactly(mut self) -> Contains<T> {
         self.exactly = true;
+        self
+    }
+
+    pub fn in_order(mut self) -> Contains<T> {
+        self.in_order = true;
         self
     }
 }
@@ -78,12 +84,41 @@ impl<'a, T: fmt::Debug + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> 
             return Err(format!("also had {}", Pretty(&rem)));
         }
 
+        if self.in_order && !contains_in_order(actual, &self.items) {
+            return Err(format!("{} does not contain {} in order", Pretty(&actual), Pretty(&self.items)));
+        }
+
         success()
     }
 }
 
+fn contains_in_order<T: fmt::Debug + PartialEq>(actual: &Vec<T>, items: &Vec<T>) -> bool {
+    let mut previous = None;
+
+    for item in items.iter() {
+        match actual.iter().position(|a| *item == *a) {
+            Some(current) => {
+                if !is_next_index(&current, &previous) {
+                    return false;
+                }
+                previous = Some(current);
+            },
+            None => return false
+        }
+    }
+
+    return true;
+}
+
+fn is_next_index(current_index: &usize, previous_index: &Option<usize>) -> bool {
+    if let Some(index) = *previous_index {
+        return *current_index == index + 1;
+    }
+    return true;
+}
+
 pub fn contains<T>(items: Vec<T>) -> Contains<T> {
-    Contains { items: items, exactly: false }
+    Contains { items: items, exactly: false, in_order: false }
 }
 
 struct Pretty<'a, T: 'a>(&'a [T]);
