@@ -13,7 +13,8 @@ mod comparisons {
     use hamcrest::prelude::*;
 
     #[test]
-    fn working_test_file() {
+    fn ints_less_than() {
+        assert_that!(4, is(less_than(5)));
     }
 
 }
