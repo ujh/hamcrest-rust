@@ -15,6 +15,7 @@ use core::*;
 
 enum CompareOperation {
     LessThan,
+    GreaterThan,
 }
 
 pub struct ComparedTo<T> {
@@ -24,13 +25,23 @@ pub struct ComparedTo<T> {
 
 impl<T: fmt::Debug> fmt::Display for ComparedTo<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "< {:?}", &self.right_hand_side)
+        let operation = match self.operation {
+            CompareOperation::LessThan => "<",
+            CompareOperation::GreaterThan => ">",
+        };
+
+        write!(f, "{} {:?}", operation, &self.right_hand_side)
     }
 }
 
 impl<T : PartialOrd + fmt::Debug> Matcher<T> for ComparedTo<T> {
     fn matches(&self, actual: T) -> MatchResult {
-        if actual < self.right_hand_side {
+        let it_succeeded = match self.operation {
+            CompareOperation::LessThan => actual < self.right_hand_side,
+            CompareOperation::GreaterThan => actual > self.right_hand_side,
+        };
+
+        if it_succeeded {
             success()
         }
         else {
@@ -42,6 +53,13 @@ impl<T : PartialOrd + fmt::Debug> Matcher<T> for ComparedTo<T> {
 pub fn less_than<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
     ComparedTo {
         operation: CompareOperation::LessThan,
+        right_hand_side: right_hand_side
+    }
+}
+
+pub fn greater_than<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
+    ComparedTo {
+        operation: CompareOperation::GreaterThan,
         right_hand_side: right_hand_side
     }
 }

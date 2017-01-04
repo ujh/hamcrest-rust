@@ -8,13 +8,30 @@
 
 #[macro_use] extern crate hamcrest;
 
-mod comparisons {
+mod compared_to {
 
     use hamcrest::prelude::*;
 
     #[test]
     fn ints_less_than() {
         assert_that!(4, is(less_than(5)));
+    }
+
+    #[test]
+    #[should_panic]
+    fn unsuccessful_less_than() {
+        assert_that!(4, is(less_than(3)));
+    }
+
+    #[test]
+    fn ints_greater_than() {
+        assert_that!(8, is(greater_than(5)));
+    }
+
+    #[test]
+    #[should_panic]
+    fn unsuccessful_greater_than() {
+        assert_that!(1, is(greater_than(3)));
     }
 
 }
