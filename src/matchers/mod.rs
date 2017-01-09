@@ -7,6 +7,7 @@
 // except according to those terms.
 
 pub mod close_to;
+pub mod compared_to;
 pub mod equal_to;
 pub mod existing_path;
 pub mod is;

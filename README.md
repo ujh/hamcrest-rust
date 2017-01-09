@@ -44,6 +44,15 @@ assert_that!(1e-40f32, is(close_to(0.0, 0.01)));
 assert_that!(1e-40f32, is_not(close_to(0.0, 0.000001)));
 ```
 
+### compared\_to
+
+``` rust
+assert_that!(1, is(less_than(2)));
+assert_that!(1, is(less_than_or_equal_to(1)));
+assert_that!(2, is(greater_than(1)));
+assert_that!(2, is(greater_than_or_equal_to(2)));
+```
+
 ### existing\_{file,path,dir}
 
 ``` rust
