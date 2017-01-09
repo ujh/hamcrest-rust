@@ -21,6 +21,7 @@ authors = [
   "Urban Hafner <contact@urbanhafner.com>",
   "Valerii Hiora <valerii.hiora@gmail.com>",
   "Yehuda Katz <wycats@gmail.com>",
+  "Matt LaChance <mattlach@umich.edu>",
 ]
 
 [dependencies]
