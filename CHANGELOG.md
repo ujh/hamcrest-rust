@@ -1,3 +1,8 @@
+## 0.1.3 [☰](https://github.com/carllerche/hamcrest-rust/compare/0.1.2...0.1.3)
+
+* Comparison matchers `less_than`, `less_than_or_equal_to`, `greater_than`, `greater_than_or_equal_to`. #43
+* `in_order` option for `contains`. #44
+
 ## 0.1.2 [☰](https://github.com/carllerche/hamcrest-rust/compare/0.1.1...0.1.2)
 
 * Added the `assert_that!` macro. It produces better error messages (with correct file and line
