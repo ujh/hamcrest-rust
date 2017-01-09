@@ -25,6 +25,28 @@ mod vecs {
     }
 
     #[test]
+    fn it_contains_elements_in_order() {
+        assert_that!(&vec!(1, 2, 3), contains(vec!(1, 2)).in_order());
+    }
+
+    #[test]
+    fn it_does_not_contain_elements_in_order() {
+        assert_that!(&vec!(1, 2, 3), not(contains(vec!(1, 3)).in_order()));
+    }
+
+    #[test]
+    #[should_panic]
+    fn it_unsuccessfully_contains_elements_in_order() {
+        assert_that!(&vec!(1, 2, 3), contains(vec!(1, 3)).in_order());
+    }
+
+    #[test]
+    #[should_panic]
+    fn it_unsuccessfully_does_not_contain_elements_in_order() {
+        assert_that!(&vec!(1, 2, 3), not(contains(vec!(2, 3)).in_order()));
+    }
+
+    #[test]
     fn vec_of_len() {
         assert_that!(&vec!(1, 2, 3), of_len(3));
         assert_that!(&vec!(1, 2, 3), is(of_len(3)));
