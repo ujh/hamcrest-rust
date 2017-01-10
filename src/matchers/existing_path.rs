@@ -19,12 +19,12 @@ use core::*;
 pub enum PathType {
     AnyType,
     File,
-    Dir
+    Dir,
 }
 
 #[derive(Clone, Copy)]
 pub struct ExistingPath {
-    path_type: PathType
+    path_type: PathType,
 }
 
 impl ExistingPath {
@@ -32,14 +32,12 @@ impl ExistingPath {
         let metadata = fs::metadata(actual);
         match self.path_type {
             PathType::File => {
-                expect(
-                    metadata.map(|m| m.is_file()).unwrap_or(false),
-                    format!("`{}` was not a file", actual.display()))
+                expect(metadata.map(|m| m.is_file()).unwrap_or(false),
+                       format!("`{}` was not a file", actual.display()))
             }
             PathType::Dir => {
-                expect(
-                    metadata.map(|m| m.is_dir()).unwrap_or(false),
-                    format!("`{}` was not a dir", actual.display()))
+                expect(metadata.map(|m| m.is_dir()).unwrap_or(false),
+                       format!("`{}` was not a dir", actual.display()))
             }
             _ => success(),
         }

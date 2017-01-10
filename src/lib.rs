@@ -38,7 +38,8 @@ macro_rules! assert_that {
 pub mod core;
 pub mod matchers;
 pub mod prelude {
-    #[allow(deprecated)] pub use core::assert_that;
+    #[allow(deprecated)]
+    pub use core::assert_that;
     pub use core::Matcher as HamcrestMatcher;
     pub use matchers::close_to::close_to;
     pub use matchers::compared_to::less_than;

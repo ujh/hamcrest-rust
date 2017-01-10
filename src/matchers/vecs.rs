@@ -17,7 +17,7 @@ use core::*;
 
 #[derive(Clone,Copy)]
 pub struct OfLen {
-    len: usize
+    len: usize,
 }
 
 impl fmt::Display for OfLen {
@@ -44,7 +44,7 @@ pub fn of_len(len: usize) -> OfLen {
 pub struct Contains<T> {
     items: Vec<T>,
     exactly: bool,
-    in_order: bool
+    in_order: bool,
 }
 
 impl<T> Contains<T> {
@@ -75,8 +75,10 @@ impl<'a, T: fmt::Debug + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> 
 
         for item in self.items.iter() {
             match rem.iter().position(|a| *item == *a) {
-                Some(idx) => { rem.remove(idx); },
-                None => return Err(format!("was {}", Pretty(&actual)))
+                Some(idx) => {
+                    rem.remove(idx);
+                }
+                None => return Err(format!("was {}", Pretty(&actual))),
             }
         }
 
@@ -85,7 +87,9 @@ impl<'a, T: fmt::Debug + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> 
         }
 
         if self.in_order && !contains_in_order(actual, &self.items) {
-            return Err(format!("{} does not contain {} in order", Pretty(&actual), Pretty(&self.items)));
+            return Err(format!("{} does not contain {} in order",
+                               Pretty(&actual),
+                               Pretty(&self.items)));
         }
 
         success()
@@ -102,8 +106,8 @@ fn contains_in_order<T: fmt::Debug + PartialEq>(actual: &Vec<T>, items: &Vec<T>)
                     return false;
                 }
                 previous = Some(current);
-            },
-            None => return false
+            }
+            None => return false,
         }
     }
 
@@ -118,7 +122,11 @@ fn is_next_index(current_index: &usize, previous_index: &Option<usize>) -> bool 
 }
 
 pub fn contains<T>(items: Vec<T>) -> Contains<T> {
-    Contains { items: items, exactly: false, in_order: false }
+    Contains {
+        items: items,
+        exactly: false,
+        in_order: false,
+    }
 }
 
 struct Pretty<'a, T: 'a>(&'a [T]);
@@ -127,7 +135,9 @@ impl<'a, T: fmt::Debug> fmt::Display for Pretty<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         try!(write!(f, "["));
         for (i, t) in self.0.iter().enumerate() {
-            if i != 0 { try!(write!(f, ", ")); }
+            if i != 0 {
+                try!(write!(f, ", "));
+            }
             try!(write!(f, "{:?}", t));
         }
         write!(f, "]")

@@ -39,7 +39,7 @@ impl<T: fmt::Debug> fmt::Display for ComparedTo<T> {
     }
 }
 
-impl<T : PartialOrd + fmt::Debug> Matcher<T> for ComparedTo<T> {
+impl<T: PartialOrd + fmt::Debug> Matcher<T> for ComparedTo<T> {
     fn matches(&self, actual: T) -> MatchResult {
         let it_succeeded = match self.operation {
             CompareOperation::LessOrEqual => actual <= self.right_hand_side,
@@ -50,37 +50,36 @@ impl<T : PartialOrd + fmt::Debug> Matcher<T> for ComparedTo<T> {
 
         if it_succeeded {
             success()
-        }
-        else {
+        } else {
             Err(format!("was {:?}", actual))
         }
     }
 }
 
-pub fn less_than<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
+pub fn less_than<T: PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
     ComparedTo {
         operation: CompareOperation::LessThan,
-        right_hand_side: right_hand_side
+        right_hand_side: right_hand_side,
     }
 }
 
-pub fn less_than_or_equal_to<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
+pub fn less_than_or_equal_to<T: PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
     ComparedTo {
         operation: CompareOperation::LessOrEqual,
-        right_hand_side: right_hand_side
+        right_hand_side: right_hand_side,
     }
 }
 
-pub fn greater_than<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
+pub fn greater_than<T: PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
     ComparedTo {
         operation: CompareOperation::GreaterThan,
-        right_hand_side: right_hand_side
+        right_hand_side: right_hand_side,
     }
 }
 
-pub fn greater_than_or_equal_to<T : PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
+pub fn greater_than_or_equal_to<T: PartialOrd + fmt::Debug>(right_hand_side: T) -> ComparedTo<T> {
     ComparedTo {
         operation: CompareOperation::GreaterOrEqual,
-        right_hand_side: right_hand_side
+        right_hand_side: right_hand_side,
     }
 }

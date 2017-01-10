@@ -23,14 +23,17 @@ impl<T, M: Matcher<T>> fmt::Display for Is<T, M> {
     }
 }
 
-impl<T, M : Matcher<T>> Matcher<T> for Is<T, M> {
+impl<T, M: Matcher<T>> Matcher<T> for Is<T, M> {
     fn matches(&self, actual: T) -> MatchResult {
         self.matcher.matches(actual)
     }
 }
 
 pub fn is<T, M: Matcher<T>>(matcher: M) -> Is<T, M> {
-    Is { matcher: matcher, marker: PhantomData }
+    Is {
+        matcher: matcher,
+        marker: PhantomData,
+    }
 }
 
 pub struct IsNot<T, M> {
@@ -38,21 +41,24 @@ pub struct IsNot<T, M> {
     marker: PhantomData<T>,
 }
 
-impl<T, M : Matcher<T>> fmt::Display for IsNot<T, M> {
+impl<T, M: Matcher<T>> fmt::Display for IsNot<T, M> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "not {}", self.matcher)
     }
 }
 
-impl<T, M : Matcher<T>> Matcher<T> for IsNot<T, M> {
+impl<T, M: Matcher<T>> Matcher<T> for IsNot<T, M> {
     fn matches(&self, actual: T) -> MatchResult {
         match self.matcher.matches(actual) {
             Ok(_) => Err("matched".to_string()),
-            Err(_) => Ok(())
+            Err(_) => Ok(()),
         }
     }
 }
 
 pub fn is_not<T, M: Matcher<T>>(matcher: M) -> IsNot<T, M> {
-    IsNot { matcher: matcher, marker: PhantomData }
+    IsNot {
+        matcher: matcher,
+        marker: PhantomData,
+    }
 }

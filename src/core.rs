@@ -17,12 +17,7 @@ pub fn success() -> MatchResult {
 }
 
 pub fn expect(predicate: bool, msg: String) -> MatchResult {
-    if predicate {
-        success()
-    }
-    else {
-        Err(msg)
-    }
+    if predicate { success() } else { Err(msg) }
 }
 
 #[deprecated(since = "0.1.2", note = "Use the assert_that! macro instead")]
