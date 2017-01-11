@@ -12,7 +12,7 @@ use std::fmt;
 use core::*;
 
 pub struct MatchesRegex {
-    regex: Regex
+    regex: Regex,
 }
 
 impl fmt::Display for MatchesRegex {
@@ -25,8 +25,7 @@ impl<'a> Matcher<&'a str> for MatchesRegex {
     fn matches(&self, actual: &'a str) -> MatchResult {
         if self.regex.is_match(actual) {
             success()
-        }
-        else {
+        } else {
             Err(format!("was {:?}", actual))
         }
     }

@@ -14,7 +14,7 @@ use std::fmt;
 use core::*;
 
 pub struct EqualTo<T> {
-    expected: T
+    expected: T,
 }
 
 impl<T: fmt::Debug> fmt::Display for EqualTo<T> {
@@ -23,17 +23,16 @@ impl<T: fmt::Debug> fmt::Display for EqualTo<T> {
     }
 }
 
-impl<T : PartialEq + fmt::Debug> Matcher<T> for EqualTo<T> {
+impl<T: PartialEq + fmt::Debug> Matcher<T> for EqualTo<T> {
     fn matches(&self, actual: T) -> MatchResult {
         if self.expected.eq(&actual) {
             success()
-        }
-        else {
+        } else {
             Err(format!("was {:?}", actual))
         }
     }
 }
 
-pub fn equal_to<T : PartialEq + fmt::Debug>(expected: T) -> EqualTo<T> {
+pub fn equal_to<T: PartialEq + fmt::Debug>(expected: T) -> EqualTo<T> {
     EqualTo { expected: expected }
 }
