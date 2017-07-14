@@ -6,12 +6,21 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-pub mod close_to;
-pub mod compared_to;
-pub mod equal_to;
-pub mod existing_path;
-pub mod is;
-pub mod none;
-pub mod regex;
-pub mod vecs;
-pub mod anything;
+#[macro_use]
+extern crate hamcrest;
+
+mod anything {
+
+    use hamcrest::prelude::*;
+
+    #[test]
+    fn usize_is_anything() {
+        assert_that!(123, is(anything()));
+    }
+
+    #[test]
+    fn str_is_anything() {
+        assert_that!("test", is(anything()));
+    }
+
+}
