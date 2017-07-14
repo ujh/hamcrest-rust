@@ -17,7 +17,7 @@ pub struct TypeOf(TypeId);
 
 impl Display for TypeOf {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        write!(f, "type_of({:?})", self.0)
+        write!(f, "type of {:?}", self.0)
     }
 }
 
@@ -28,7 +28,7 @@ impl<T: 'static> Matcher<T> for TypeOf {
         if self.0 == type_id {
             success()
         } else {
-            Err(format!("type_of({:?})", type_id))
+            Err(format!("type of {:?}", type_id))
         }
     }
 }
