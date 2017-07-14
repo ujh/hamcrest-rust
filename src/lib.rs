@@ -60,4 +60,5 @@ pub mod prelude {
     pub use matchers::vecs::contains;
     pub use matchers::vecs::of_len;
     pub use matchers::anything::anything;
+    pub use matchers::type_of::type_of;
 }

@@ -6,13 +6,21 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-pub mod close_to;
-pub mod compared_to;
-pub mod equal_to;
-pub mod existing_path;
-pub mod is;
-pub mod none;
-pub mod regex;
-pub mod vecs;
-pub mod anything;
-pub mod type_of;
+#[macro_use]
+extern crate hamcrest;
+
+mod type_of {
+
+    use hamcrest::prelude::*;
+
+    #[test]
+    fn usize_is_type_of_usize() {
+        assert_that!(123usize, is(type_of::<usize>()));
+    }
+
+    #[test]
+    fn str_is_type_of_str() {
+        assert_that!("test", is(type_of::<&str>()));
+    }
+
+}
