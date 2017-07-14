@@ -61,4 +61,8 @@ pub mod prelude {
     pub use matchers::vecs::of_len;
     pub use matchers::anything::anything;
     pub use matchers::type_of::type_of;
+    pub use matchers::all_of::all_of;
+    pub use matchers::all_of::all_of as and;
+    pub use matchers::any_of::any_of;
+    pub use matchers::any_of::any_of as or;
 }

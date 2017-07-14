@@ -16,3 +16,5 @@ pub mod regex;
 pub mod vecs;
 pub mod anything;
 pub mod type_of;
+pub mod all_of;
+pub mod any_of;
