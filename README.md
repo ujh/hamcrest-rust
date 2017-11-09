@@ -68,6 +68,13 @@ assert_that!(None, is(none::<int>()));
 assert_that!(Some(1), is_not(none::<int>()));
 ```
 
+### anything
+
+``` rust
+assert_that!(42, is(anything()));
+assert_that!("test", is(anything()));
+```
+
 ### contains, contains\_exactly, contains\_in order
 
 ``` rust
@@ -86,6 +93,33 @@ assert_that!(&vec!(1i, 2, 3), not(contains(vec!(1i, 3)).in_order()));
 ``` rust
 assert_that!("1234", matches_regex(r"\d"));
 assert_that!("abc", does_not(match_regex(r"\d")));
+```
+
+### type_of
+
+``` rust
+assert_that!(123usize, is(type_of::<usize>()));
+assert_that!("test", is(type_of::<&str>()));
+```
+
+### all_of
+
+``` rust
+assert_that!(4, all_of!(less_than(5), greater_than(3)));
+assert_that!(
+    &vec![1, 2, 3],
+    all_of!(contains(vec![1, 2]), not(contains(vec![4])))
+);
+```
+
+### any_of
+
+``` rust
+assert_that!(4, any_of!(less_than(2), greater_than(3)));
+assert_that!(
+    &vec![1, 2, 3],
+    any_of!(contains(vec![1, 2, 5]), not(contains(vec![4])))
+);
 ```
 
 ## License

@@ -1,8 +1,4 @@
-// Copyright 2014 Carl Lerche, Steve Klabnik, Alex Crichton, Yehuda Katz,
-//                Ben Longbons
-// Copyright 2015 Carl Lerche, Alex Crichton, Robin Gloster
-// Copyright 2016 Urban Hafner
-// Copyright 2017 Matt LaChance
+// Copyright 2017 Flier Lu
 //
 // Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 // http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
@@ -47,9 +43,8 @@ where
     fn matches(&self, actual: T) -> MatchResult {
         let (ref m0, ref m1) = self.0;
 
-        m0.matches(actual.clone()).or_else(
-            |_| m1.matches(actual.clone()),
-        )
+        m0.matches(actual.clone())
+            .or_else(|_| m1.matches(actual.clone()))
     }
 }
 

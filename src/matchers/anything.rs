@@ -1,7 +1,4 @@
-// Copyright 2014 Steve Klabnik, Valerii Hiora, Oliver Mader
-// Copyright 2015 Carl Lerche, Oliver Mader, Alex Crichton, Graham Dennis,
-//                Tamir Duberstein, Robin Gloster
-// Copyright 2016 Urban Hafner
+// Copyright 2017 Flier Lu
 //
 // Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 // http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
