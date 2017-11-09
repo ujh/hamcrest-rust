@@ -43,8 +43,9 @@ where
     fn matches(&self, actual: T) -> MatchResult {
         let (ref m0, ref m1) = self.0;
 
-        m0.matches(actual.clone())
-            .or_else(|_| m1.matches(actual.clone()))
+        m0.matches(actual.clone()).or_else(
+            |_| m1.matches(actual.clone()),
+        )
     }
 }
 
