@@ -28,5 +28,5 @@ authors = [
 ]
 
 [dependencies]
-num = "0.1.36"
-regex = "0.1.77"
+num = "0.1.40"
+regex = "0.2.2"
