@@ -15,7 +15,7 @@ use std::vec::Vec;
 
 use core::*;
 
-#[derive(Clone,Copy)]
+#[derive(Clone, Copy)]
 pub struct OfLen {
     len: usize,
 }
@@ -87,9 +87,11 @@ impl<'a, T: fmt::Debug + PartialEq + Clone> Matcher<&'a Vec<T>> for Contains<T> 
         }
 
         if self.in_order && !contains_in_order(actual, &self.items) {
-            return Err(format!("{} does not contain {} in order",
-                               Pretty(&actual),
-                               Pretty(&self.items)));
+            return Err(format!(
+                "{} does not contain {} in order",
+                Pretty(&actual),
+                Pretty(&self.items)
+            ));
         }
 
         success()

@@ -24,6 +24,7 @@ authors = [
   "Yehuda Katz <wycats@gmail.com>",
   "Ian Létourneau <letourneau.ian@gmail.com>",
   "Matt LaChance <mattlach@umich.edu>",
+  "Flier Lu <flier.lu@gmail.com>",
 ]
 
 [dependencies]
