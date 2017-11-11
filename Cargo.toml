@@ -25,6 +25,7 @@ authors = [
   "Ian Létourneau <letourneau.ian@gmail.com>",
   "Matt LaChance <mattlach@umich.edu>",
   "Flier Lu <flier.lu@gmail.com>",
+  "Povilas Balciunas <balciunas90@gmail.com>",
 ]
 
 [dependencies]
