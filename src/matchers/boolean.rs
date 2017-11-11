@@ -1,4 +1,4 @@
-// Copyright 2016 Urban Hafner
+// Copyright 2017 Povilas Balciunas
 //
 // Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
 // http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
@@ -6,16 +6,14 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-pub mod close_to;
-pub mod compared_to;
-pub mod equal_to;
-pub mod existing_path;
-pub mod is;
-pub mod none;
-pub mod regex;
-pub mod vecs;
-pub mod anything;
-pub mod type_of;
-pub mod all_of;
-pub mod any_of;
-pub mod boolean;
+use core::*;
+
+impl Matcher<bool> for bool {
+    fn matches(&self, actual: bool) -> MatchResult {
+        if actual == *self {
+            success()
+        } else {
+            Err(format!("was {:?}", actual))
+        }
+    }
+}
