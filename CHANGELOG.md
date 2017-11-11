@@ -1,3 +1,7 @@
+## UNKNOWN [☰](https://github.com/ujh/hamcrest-rust/compare/0.1.4...master)
+
+* Implemented matcher trait for boolean values, #48
+
 ## 0.1.4 [☰](https://github.com/ujh/hamcrest-rust/compare/0.1.3...0.1.4)
 
 * Logical matchers `all_of`, `any_of`, comparison matchers `type_of`, `anything`, #47
