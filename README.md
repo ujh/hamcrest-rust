@@ -122,6 +122,13 @@ assert_that!(
 );
 ```
 
+### is(bool)
+
+``` rust
+assert_that!(true, is(true));
+assert_that!(false, is(false));
+```
+
 ## License
 
 Licensed under either of
