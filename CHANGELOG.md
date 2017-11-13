@@ -1,4 +1,4 @@
-## UNKNOWN [☰](https://github.com/ujh/hamcrest-rust/compare/0.1.4...master)
+## 0.1.5 [☰](https://github.com/ujh/hamcrest-rust/compare/0.1.4...0.1.5)
 
 * Implemented matcher trait for boolean values, #48
 
