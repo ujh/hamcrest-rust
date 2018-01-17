@@ -123,12 +123,17 @@ fn is_next_index(current_index: &usize, previous_index: &Option<usize>) -> bool 
     return true;
 }
 
-pub fn contains<T>(items: Vec<T>) -> Contains<T> {
+pub fn contains_all_of<T>(items: Vec<T>) -> Contains<T> {
     Contains {
         items: items,
         exactly: false,
         in_order: false,
     }
+}
+
+#[deprecated(since = "0.2.0", note = "Use the contains_all_of instead")]
+pub fn contains<T>(items: Vec<T>) -> Contains<T> {
+    contains_all_of(items)
 }
 
 struct Pretty<'a, T: 'a>(&'a [T]);
