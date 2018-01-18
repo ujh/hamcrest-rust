@@ -123,12 +123,30 @@ fn is_next_index(current_index: &usize, previous_index: &Option<usize>) -> bool 
     return true;
 }
 
-pub fn contains<T>(items: Vec<T>) -> Contains<T> {
+/// Creates a matcher that checks if actual vector has all items of the given vector.
+///
+/// # Examples
+///
+/// ```
+/// #[macro_use] extern crate hamcrest;
+/// use hamcrest::prelude::*;
+///
+/// fn main() {
+///     assert_that!(&vec![1, 2, 3, 4], contains_all_of(vec![1, 2, 3]));
+///     assert_that!(&vec![1, 2, 3], does_not(contain_all_of(vec![1, 2, 4])));
+/// }
+/// ```
+pub fn contains_all_of<T>(items: Vec<T>) -> Contains<T> {
     Contains {
         items: items,
         exactly: false,
         in_order: false,
     }
+}
+
+#[deprecated(since = "0.2.0", note = "Use the contains_all_of instead")]
+pub fn contains<T>(items: Vec<T>) -> Contains<T> {
+    contains_all_of(items)
 }
 
 struct Pretty<'a, T: 'a>(&'a [T]);

@@ -58,6 +58,8 @@ pub mod prelude {
     pub use matchers::regex::matches_regex as match_regex;
     pub use matchers::regex::matches_regex;
     pub use matchers::vecs::contains;
+    pub use matchers::vecs::contains_all_of;
+    pub use matchers::vecs::contains_all_of as contain_all_of;
     pub use matchers::vecs::of_len;
     pub use matchers::anything::anything;
     pub use matchers::type_of::type_of;

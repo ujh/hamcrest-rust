@@ -19,10 +19,10 @@ mod all_of {
     }
 
     #[test]
-    fn vec_contains() {
+    fn vec_contains_all_of() {
         assert_that!(
             &vec![1, 2, 3],
-            all_of!(contains(vec![1, 2]), not(contains(vec![4])))
+            all_of!(contains_all_of(vec![1, 2]), not(contains_all_of(vec![4])))
         );
     }
 }
