@@ -30,4 +30,4 @@ authors = [
 
 [dependencies]
 num = "0.1.40"
-regex = "0.2.2"
+regex = "1"
