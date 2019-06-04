@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/ujh/hamcrest-rust.svg?branch=master)](https://travis-ci.org/ujh/hamcrest-rust)
+[![Open Source Helpers](https://www.codetriage.com/carllerche/hamcrest-rust/badges/users.svg)](https://www.codetriage.com/carllerche/hamcrest-rust)
 
 # Hamcrest
 
